@@ -1,0 +1,26 @@
+<div class="report-dialog" *ngIf="!reportSubmitted">
+  <h1 mat-dialog-title align="center">Report User</h1>
+  <mat-error *ngIf="reportFailed" type="form-error">Could not report the user. Have you reported them before?</mat-error>
+  <div mat-dialog-content align="center">
+    <form autocomplete="off">
+      <mat-form-field>
+        <textarea matInput placeholder="Reason" name="reason" [(ngModel)]="model.reason" #reason="ngModel" required autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+        <mat-error for="reason" *ngIf="reportAttempted && (!model.reason || !model.reason.valid)" type="error">Reason is <strong>required</strong></mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <div mat-dialog-actions align="center">
+    <button mat-button (click)="reportUser()" color="primary" tabindex="2" [disabled]="!reason || !reason.valid">Report User</button>
+    <button mat-button (click)="dialogRef.close(false)" color="secondary" tabindex="2">Cancel</button>
+  </div>
+</div>
+<div class="report-dialog" *ngIf="reportSubmitted">
+  <h1 mat-dialog-title align="center">Report Submitted</h1>
+  <div mat-dialog-content align="center">
+    <p>Your report details have been submitted for this user. They are now blocked from sending messages to your account, and will no longer be searchable. Use the user management options to manage blocked users.</p>
+  </div>
+  <div mat-dialog-actions align="center">
+    <button mat-button (click)="dialogRef.close(true)" color="primary" tabindex="2">Close</button>
+  </div>
+</div>

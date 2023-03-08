@@ -1,0 +1,27 @@
+@import '../../../style-constants/style.constants.scss';
+
+.chat-member {
+  position: relative;
+  display: inline-flex;
+  height: 40px;
+  width: 100%;
+  padding-left: 10px;
+
+  .display {
+    padding-left: 10px;
+    top: 10px;
+    position: relative;
+    height: calc(100% - 10px);
+    height: -moz-calc(100% - 10px);
+    height: -webkit-calc(100% - 10px);
+
+    text-transform: capitalize;
+  }
+
+  image-display {
+    position: relative;
+    left: -2px;
+    height: 45px !important;
+    width: 40px !important;
+  }
+}

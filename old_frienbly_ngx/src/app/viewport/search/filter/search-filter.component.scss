@@ -1,0 +1,59 @@
+@import '../../../style-constants/style.constants.scss';
+
+.search-filter {
+  padding: 10px;
+  overflow: hidden;
+
+  .toggle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .gender-field {
+    margin-top: 10px;
+  }
+
+  .age {
+    width: 75px !important;
+  }
+  input[type="number"] {
+    width: 75px !important;
+  }
+
+  .start-age {
+    margin-top: 20px;
+  }
+
+  .mat-form-field {
+    width: 160px;
+  }
+
+  .mat-dialog-content {
+    overflow-x: hidden;
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  .mat-dialog-actions {
+    margin-bottom: 0;
+  }
+
+  .location-controls {
+    padding-top: 20px;
+  }
+
+  .mat-button {
+    margin-left: 0 !important;
+    margin-right: 8px;
+  }
+
+  button {
+    border-radius: 10px;
+    background-color: rgb(230, 230, 230);
+  }
+
+  mat-form-field {
+    padding-right: 20px;
+  }
+}

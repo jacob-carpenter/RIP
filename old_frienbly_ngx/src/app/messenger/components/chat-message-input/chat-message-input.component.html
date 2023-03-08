@@ -1,0 +1,86 @@
+<div class="chat-message-input">
+  <div class="chat-message">
+    <textarea class="chat-field" (keydown.enter)="messageConfirmed($event)" name="message" [(ngModel)]="message" rows="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+
+    <emoji-dialog-input class="emoticon-blocker" (setPopupAction)="setOpenEmoticonPopupEvent($event)" (emojiClick)="insertEmoji($event)"></emoji-dialog-input>
+
+    <div *ngIf="openEmoticonPopupFunction && !isMobile">
+      <button mat-icon-button class="emoticon-picker-button" (click)="openEmoticonPopupFunction()">
+        <mat-icon>mood</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <div style="display: inline-flex;" *ngIf="!loading">
+      <div *ngIf="!disableMessageInputButtons">
+        <div *ngIf="!hideRequestButton && (!request || !request.accepted)">
+          <div style="display: inline-flex;" *ngIf="chatType === ChatType.USER_EPHEMERAL">
+            <button mat-icon-button matTooltip="Ask to Connect" color="secondary" class="send-button" (click)="sendConnectionRequest()" *ngIf="!request && targetUserId">
+              <span>
+                <mat-icon>add_circle_outline</mat-icon>
+              </span>
+            </button>
+            <button mat-icon-button matTooltip="Accept Connection Request" color="secondary" class="send-button" (click)="acceptConnectionRequest()" *ngIf="request && request.targetUserId != targetUserId">
+              <span>
+                <mat-icon>check_circle</mat-icon>
+              </span>
+            </button>
+          </div>
+
+          <div style="display: inline-flex;" *ngIf="chatType === ChatType.GROUP_EPHEMERAL">
+            <button mat-icon-button matTooltip="Invite to Group" color="secondary" class="send-button" (click)="sendConnectionRequest()" *ngIf="!request && targetUserId">
+              <span>
+                <mat-icon>add_circle_outline</mat-icon>
+              </span>
+            </button>
+            <button mat-icon-button matTooltip="Ask to Join Group" color="secondary" class="send-button" (click)="sendConnectionRequest()" *ngIf="!request && targetGroupId">
+              <span>
+                <mat-icon>add_circle_outline</mat-icon>
+              </span>
+            </button>
+            <button mat-icon-button matTooltip="Accept Join Request" color="secondary" class="send-button" (click)="acceptConnectionRequest()" *ngIf="request && (!targetGroupId || request.targetGroupId != targetGroupId) && (!targetUserId || request.targetUserId != targetUserId) && currentGroup && targetUserId && !targetGroupId">
+              <span>
+                <mat-icon>check_circle</mat-icon>
+              </span>
+            </button>
+            <button mat-icon-button matTooltip="Accept Group Combine Request" color="secondary" class="send-button" (click)="acceptConnectionRequest()" *ngIf="request && (!targetGroupId || request.targetGroupId != targetGroupId) && (!targetUserId || request.targetUserId != targetUserId) && currentGroup && !targetUserId && targetGroupId">
+              <span>
+                <mat-icon>check_circle</mat-icon>
+              </span>
+            </button>
+            <button mat-icon-button matTooltip="Join Group" color="secondary" class="send-button" (click)="acceptConnectionRequest()" *ngIf="request && (!targetGroupId || request.targetGroupId != targetGroupId) && (!targetUserId || request.targetUserId != targetUserId) && !currentGroup">
+              <span>
+                <mat-icon>check_circle</mat-icon>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div style="display: inline-flex;" *ngIf="chatType === ChatType.USER">
+          <button mat-icon-button matTooltip="Remove Connection" color="secondary" class="send-button" (click)="removeConnection()">
+            <span>
+              <mat-icon>remove_circle_outline</mat-icon>
+            </span>
+          </button>
+        </div>
+
+        <div style="display: inline-flex;" *ngIf="chatType === ChatType.USER || chatType === ChatType.GROUP">
+          <button mat-icon-button matTooltip="Plan Event" color="secondary" class="send-button" (click)="planEvent()">
+            <span>
+              <mat-icon>event</mat-icon>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div style="display: inline-flex;" >
+        <button mat-icon-button matTooltip="Send" color="secondary" class="send-button" (click)="sendMessage()" [disabled]="message.length == 0 || !canSend" [ngClass]="{'disabled': message.length == 0 || !canSend}">
+          <span>
+            <mat-icon class="send-button">send</mat-icon>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+<div>

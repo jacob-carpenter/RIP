@@ -1,0 +1,13 @@
+<div class="event-settings">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <h1 mat-dialog-title align="center">Plan Event</h1>
+  <div mat-dialog-content align="center" *ngIf="updatedEvent">
+    <events-settings-general-information [event]="updatedEvent" (validityStateChanged)="generalInformationValidStateChanged($event)" (imageRemoved)="imageRemoved($event)" (imageChanged)="imageChanged($event)"></events-settings-general-information>
+  </div>
+  <div mat-dialog-actions align="center">
+    <button mat-button color="secondary" class="btn border-right" (click)="handleSave()" [disabled]="!generalInformationValid">{{ getSaveButtonText() }}</button>
+  </div>
+</div>

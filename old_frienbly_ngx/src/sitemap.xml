@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.frienbly.com/welcome</loc>
+    <lastmod>2017-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.frienbly.com/aboutus</loc>
+    <lastmod>2017-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.frienbly.com/privacypolicy</loc>
+    <lastmod>2017-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.frienbly.com/safety</loc>
+    <lastmod>2017-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.frienbly.com/terms</loc>
+    <lastmod>2017-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>

@@ -1,0 +1,16 @@
+<div class="event-dashboard">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div *ngIf="eventSettingsService.showDeclined">
+    <div class="event-card-wrapper" *ngFor="let event of events">
+      <event-card [event]="event" [currentUser]="currentUser"></event-card>
+    </div>
+  </div>
+  <div *ngIf="!eventSettingsService.showDeclined">
+    <div class="event-card-wrapper" *ngFor="let event of getAcceptedOrTentativeEvents(events)">
+      <event-card [event]="event" [currentUser]="currentUser"></event-card>
+    </div>
+  </div>
+</div>

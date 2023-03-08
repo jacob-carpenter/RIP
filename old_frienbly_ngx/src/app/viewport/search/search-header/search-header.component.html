@@ -1,0 +1,18 @@
+<div *ngIf="loading" type="floating-center">
+  <mat-spinner color="primary" align="center"></mat-spinner>
+</div>
+
+<div *ngIf="!loading" class="search-header-background">
+  <div class="search-header" *ngIf="currentSearchUser" (click)="openUserCard()">
+    <div class="search-member">
+      <image-display [imageId]="currentSearchUser.imageId" [rotation]="currentSearchUser.imageRotation" [defaultIconSize]="'35px'" [maxHeight]="'35px'" [inline]="true" [ngClass]="{'icon-display': !currentSearchUser.imageId}"></image-display>
+      <label class="display">{{currentSearchUser.username}}</label>
+    </div>
+  </div>
+  <div class="search-header" *ngIf="currentSearchGroup" (click)="openGroupCard()">
+    <div class="search-member">
+      <image-display [imageId]="currentSearchGroup.imageId" [rotation]="currentSearchGroup.imageRotation" [defaultIcon]="'group_work'" [defaultIconSize]="'35px'" [maxHeight]="'35px'" [inline]="true" [ngClass]="{'icon-display': !currentSearchGroup.imageId}"></image-display>
+      <label class="display">{{currentSearchGroup.name}}</label>
+    </div>
+  </div>
+</div>

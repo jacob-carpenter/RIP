@@ -1,0 +1,99 @@
+<div class="splash">
+  <app-top-menu></app-top-menu>
+
+  <div class="content" align="center">
+    <div class="viewport">
+      <div class="content-cards">
+        <div fxLayout="row" fxLayout.xs="column">
+          <mat-card fxFlex="50%" fxFlex.xs="100%">
+            <mat-card-title-group>
+              <mat-card-title i18n>
+                <img src="../../assets/images/monsters/monsters_1-3.png" alt="Welcome" class="monster-image monster-welcome-image">
+                <span>Welcome to Frienbly!</span>
+              </mat-card-title>
+            </mat-card-title-group>
+            <mat-card-subtitle>The new platonic friendship search platform.</mat-card-subtitle>
+
+            <mat-card-content *ngIf="isMobile">
+              <h3 class="inline-title">Search by interest, join groups, and form new friendships.</h3>
+              <h2 class="inline-title">Join Today!</h2>
+            </mat-card-content>
+
+            <mat-card-content *ngIf="!isMobile">
+              <h2 class="inline-title">Search by interest, join groups, and form new friendships!</h2>
+            </mat-card-content>
+
+            <mat-card-footer>
+              <a target="_blank" title="Follow us on Facebook" href="http://www.facebook.com/frienblyllc"><img alt="Follow us on Facebook" src="../../assets/images/splash/facebook.png" border=0></a>
+              <a target="_blank" title="Follow us on Twitter" href="http://www.twitter.com/Frienbly_Search"><img alt="Follow us on Twitter" src="../../assets/images/splash/twitter.png" border=0></a>
+            </mat-card-footer>
+
+
+            <div class="registration-arrow-container" *ngIf="registrationStateActive && !isMobile">
+              <img mat-card-image src="../../assets/images/splash/arrow-right.png" alt="Sign Up Arrow" align="center">
+            </div>
+          </mat-card>
+
+          <mat-card fxFlex="50%" fxFlex.xs="100%" class="form-card">
+            <mat-card-title *ngIf="!loginStateActive && !registrationStateActive" class="sign-up-title" align="center" i18n>Login or Sign Up</mat-card-title>
+            <mat-card-title *ngIf="loginStateActive" align="center" class="sign-up-title" i18n>Login</mat-card-title>
+            <mat-card-title *ngIf="registrationStateActive" align="center" class="sign-up-title" i18n>Sign Up</mat-card-title>
+            <mat-card-subtitle *ngIf="registrationStateActive">It's <strong>free</strong> and takes <strong>less than 30 seconds!</strong></mat-card-subtitle>
+            <div>
+              <login *ngIf="loginStateActive" (keydown.enter)="loginClicked()" (loginRegistered)="loginRegistered($event)" (loginFinished)="loginFinished($event)"></login>
+              <registration *ngIf="registrationStateActive" (keydown.enter)="registrationClicked()" (registrationRegistered)="registrationRegistered($event)" (registrationFinished)="registrationFinished($event)"></registration>
+            </div>
+            <mat-card-actions align="center">
+              <mat-spinner *ngIf="loginRegistrationLoading" color="primary" align="center"></mat-spinner>
+              <button mat-button color="primary" (click)="loginClicked()" [disabled]="loginRegistrationLoading" class="login-button" [ngClass]="{'hidden-login-button': registrationStateActive}">Login</button>
+              <button mat-button color="secondary" (click)="registrationClicked()" [disabled]="loginRegistrationLoading" class="registration-button" [ngClass]="{'hidden-registration-button': loginStateActive}">Sign Up</button>
+              <img *ngIf="registrationStateActive" src="../../assets/images/monsters/monsters_1-8.png" alt="Sign Up" class="monster-image monster-signup-image">
+            </mat-card-actions>
+            <mat-card-footer></mat-card-footer>
+          </mat-card>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column">
+          <mat-card class="image-card" fxFlex="40%" fxFlex.xs="100%">
+            <mat-card-title align="center">
+              <img src="../../assets/images/monsters/monsters_2-8.png" alt="Search" class="monster-image monster-action-image">
+            </mat-card-title>
+            <mat-card-title class="smaller-title" align="center" i18n>Find Users and Groups by Interest</mat-card-title>
+            <div class="image-container">
+              <img mat-card-image src="../../assets/images/splash/Search_1.png" alt="Group Search" align="center">
+            </div>
+            <mat-card-title class="smaller-title" align="center" style="padding-left: 10px; padding-right: 10px;" i18n>
+              Find groups or people by age, gender, location and interest.
+            </mat-card-title>
+          </mat-card>
+          <mat-card class="image-card" fxFlex="40%" fxFlex.xs="100%">
+            <mat-card-title align="center">
+              <img src="../../assets/images/monsters/monsters_2-14.png" alt="Chat" class="monster-image monster-action-image">
+            </mat-card-title>
+            <mat-card-title class="smaller-title" align="center" i18n>Chat with Users or Groups</mat-card-title>
+            <div class="image-container">
+              <img mat-card-image src="../../assets/images/splash/Messenger_1.png" alt="Group Chat" align="center">
+            </div>
+
+            <mat-card-title class="smaller-title" align="center" style="padding-left: 10px; padding-right: 10px;" i18n>
+              Chat with your groups, potential group members, or newly found friends.
+            </mat-card-title>
+          </mat-card>
+          <mat-card class="image-card" fxFlex="40%" fxFlex.xs="100%">
+            <mat-card-title align="center">
+              <img src="../../assets/images/monsters/monsters_1-6.png" alt="Plan Events" class="monster-image monster-action-image">
+            </mat-card-title>
+            <mat-card-title class="smaller-title" align="center" i18n>Plan Events</mat-card-title>
+            <div class="image-container">
+              <img mat-card-image src="../../assets/images/splash/Events_1.png" alt="Plan Events for a Chat" align="center">
+            </div>
+
+            <mat-card-title class="smaller-title" align="center" style="padding-left: 10px; padding-right: 10px;" i18n>
+              Plan future events in your group or with connected users.
+            </mat-card-title>
+          </mat-card>
+        </div>
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

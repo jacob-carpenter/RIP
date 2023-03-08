@@ -1,0 +1,33 @@
+
+<div *ngIf="loading" type="floating-center">
+  <mat-spinner color="primary" align="center"></mat-spinner>
+</div>
+
+<div class="group-settings" *ngIf="!loading">
+  <div class="top-bar" type="bar" align="center">
+    <span type="fill-space"></span>
+    <div class="wrap">
+      <button mat-button color="secondary" class="btn border-right" (click)="transitionState(GroupSettingsState.GENERAL_INFORMATION)">
+        <mat-icon type="error" *ngIf="!generalInformationValid">error_outline</mat-icon>
+        General Information
+      </button>
+      <button mat-button color="secondary" class="btn border-right border-left" (click)="transitionState(GroupSettingsState.SEARCH_PREFERENCES)">
+        <mat-icon type="error" *ngIf="!searchPreferencesValid">error_outline</mat-icon>
+        Search Preferences
+      </button>
+    </div>
+    <span type="fill-space"></span>
+  </div>
+  <mat-error *ngIf="isErrored">An error has occurred loading group details.</mat-error>
+
+  <div class="card-container" *ngIf="updatedGroupDetails != null">
+    <settings-general-information *ngIf="currentSettingsState == GroupSettingsState.GENERAL_INFORMATION" [groupDetails]="updatedGroupDetails" (validityStateChanged)="generalInformationValidStateChanged($event)" (imageRemoved)="imageRemoved($event)" (imageChanged)="imageChanged($event)"></settings-general-information>
+    <settings-search-preferences *ngIf="currentSettingsState == GroupSettingsState.SEARCH_PREFERENCES" [groupDetails]="updatedGroupDetails" (validityStateChanged)="searchPreferencesValidStateChanged($event)" ></settings-search-preferences>
+  </div>
+
+  <div class="bottom-bar" type="bar" align="center" *ngIf="updatedGroupDetails != null">
+    <span type="fill-space"></span>
+      <button mat-button color="secondary" class="save-button" (click)="handleSave()" [disabled]="!generalInformationValid || !searchPreferencesValid">{{ getSaveButtonText() }}</button>
+    <span type="fill-space"></span>
+  </div>
+</div>

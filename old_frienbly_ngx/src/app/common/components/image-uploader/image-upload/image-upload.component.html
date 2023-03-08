@@ -1,0 +1,46 @@
+<div
+     fileDrop
+     [accept]="supportedExtensions"
+     (fileDrop)="onFileChange($event)"
+     [ngClass]="cssClass"
+     [ngClass]="{'img-ul-file-is-over': fileOver}"
+>
+  <div class="img-ul-file-upload img-ul-hr-inline-group">
+
+    <label class="img-ul-upload img-ul-button">
+      <span [innerText]="buttonCaption"></span>
+      <input
+        matInput
+        type="file"
+        [accept]="supportedExtensions"
+        multiple (change)="onFileChange(input.files)"
+        #input [disabled]="file">
+    </label>
+    <div class="img-ul-drag-box-msg" [innerText]="file ? 'Only 1 image can be uploaded.': dropBoxMessage"></div>
+  </div>
+
+  <p class="img-ul-file-too-large" *ngIf="showFileTooLargeMessage" [innerText]="fileTooLargeMessage"></p>
+
+  <div *ngIf="file" fxLayout="row" fxLayout.xs="column">
+    <mat-card fxFlex="50%" fxFlex.xs="100%">
+      <mat-card-content>
+        <div class="img-options" *ngIf="!file.pending">
+          <div class="img-ul-x-mark" (click)="deleteFile(file)">
+            <span class="img-ul-close"></span>
+          </div>
+
+          <div class="img-ul-rotate-left" (click)="rotateLeft(file)">
+            <span class="fa fa-rotate-left"></span>
+          </div>
+
+          <div class="img-ul-rotate-right" (click)="rotateRight(file)">
+            <span class="fa fa-rotate-right"></span>
+          </div>
+        </div>
+
+        <mat-spinner *ngIf="file.pending"></mat-spinner>
+        <img *ngIf="!file.pending" mat-card-image class="img-ul-image" [src]="file.src" [ngStyle]="{'transform': 'rotate(' + file.rotation + 'deg)'}" />
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

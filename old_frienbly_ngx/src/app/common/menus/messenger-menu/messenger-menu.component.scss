@@ -1,0 +1,17 @@
+@import '../../../style-constants/style.constants.scss';
+
+.messenger-menu {
+  .unread-messages {
+    position: relative;
+    top: 22px;
+    right: -3px;
+    font-size: 18px;
+    float: right;
+    z-index: 1;
+    color: #FFDF00;
+  }
+
+  .unread-messages:hover {
+    cursor: pointer;
+  }
+}

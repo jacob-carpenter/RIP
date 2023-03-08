@@ -1,0 +1,29 @@
+@import '../../style-constants/style.constants.scss';
+
+.token-count {
+  .static-icon {
+    font-size: 100px;
+    height: 80px;
+    width: 80px;
+  }
+
+  .floating-text {
+    font-size: 32px;
+    font-weight: 800;
+    position: relative;
+    padding-left: 19px;
+    bottom: 72px;
+  }
+
+  .normal-count {
+    color: #00897b;
+  }
+
+  .med-count {
+    color: yellow;
+  }
+
+  .low-count {
+    color: red;
+  }
+}

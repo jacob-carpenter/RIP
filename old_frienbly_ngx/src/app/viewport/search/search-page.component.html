@@ -1,0 +1,57 @@
+<div class="search">
+  <div class="notification-bar" *ngIf="displayUserSettingsNotificationBar || displayGroupSettingsNotificationBar">
+    <user-setting-notification *ngIf="displayUserSettingsNotificationBar"></user-setting-notification>
+    <group-setting-notification *ngIf="displayGroupSettingsNotificationBar"></group-setting-notification>
+  </div>
+  <div [ngClass]="{'notification-bar-padding': displayUserSettingsNotificationBar || displayGroupSettingsNotificationBar}">
+    <div class="search-header">
+      <search-header></search-header>
+    </div>
+
+    <div class="top-bar" type="bar" align="left">
+      <button type="menu-button" mat-icon-button matTooltip="Filter" (click)="openFilterDialog()">
+        <mat-icon class="material-icons">search</mat-icon>
+      </button>
+      <mat-spinner *ngIf="loading"></mat-spinner>
+    </div>
+    <div *ngIf="!loading && reportResults && reportResults.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
+      <div *ngFor="let result of reportResults;">
+        <user-card *ngIf="result.user" [user]="result.user" [searchedTags]="currentFilterCriteria.tags"></user-card>
+        <group-card *ngIf="result.group && !result.group.joined" [group]="result.group" [searchedTags]="currentFilterCriteria.tags"></group-card>
+      </div>
+    </div>
+    <div *ngIf="!loading && (!reportResults || reportResults.length <= 0)" align="center">
+      <mat-card>
+        <mat-card-title align="center">
+          <mat-icon mat-card-avatar class="material-icons">announcement</mat-icon>
+        </mat-card-title>
+        <mat-card-content>
+          <div *ngIf="currentFilterCriteria.onlineOnly">
+            <h2>
+              Sorry, but we were unable to find online results.
+            </h2>
+            <h4>
+              {{ getSearchTipMessage() }}
+            </h4>
+          </div>
+          <div *ngIf="!currentFilterCriteria.onlineOnly && currentFilterCriteria.useMyLocation">
+            <h2>
+              Sorry, but we were unable to find results in your area.
+            </h2>
+            <h4>
+              {{ getSearchTipMessage() }}
+            </h4>
+          </div>
+          <div *ngIf="!currentFilterCriteria.onlineOnly && !currentFilterCriteria.useMyLocation">
+            <h2>
+              Sorry, but we were unable to find results in that area.
+            </h2>
+            <h4>
+              {{ getSearchTipMessage() }}
+            </h4>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

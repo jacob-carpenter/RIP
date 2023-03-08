@@ -1,0 +1,21 @@
+<div class="chat" [ngClass]="{'fill-viewport': fillViewport}">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div *ngIf="chat && !loading">
+    <div class="chat-header" *ngIf="fillViewport">
+      <chat-header [chat]="chat"></chat-header>
+    </div>
+
+    <div class="message-list" #messageView [scrollTop]="messageView.scrollHeight">
+      <div *ngIf="activeMessages && currentUser && chatUsers">
+        <message-display [activeMessages]="activeMessages" [chatUsers]="chatUsers" [currentUser]="currentUser" [chat]="chat"></message-display>
+      </div>
+    </div>
+
+    <div class="chat-bar">
+      <chat-message-input (send)="send($event)" [chat]="chat" [targetUserId]="targetUserId" [targetGroupId]="targetGroupId" [disableGroupChat]="disableGroupChat" [disableMessageInputButtons]="disableMessageInputButtons"></chat-message-input>
+    </div>
+  </div>
+</div>

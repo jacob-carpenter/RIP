@@ -1,0 +1,50 @@
+<div class="general-information">
+  <form name="eventDetails" #eventDetails="ngForm" autocomplete="off" align="left" class="event-form" >
+    <div *ngIf="_event">
+      <mat-form-field class="event-name-input">
+        <input matInput placeholder="Event" name="eventName" [(ngModel)]="_event.eventName" required tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field style="width: 90%;" class="event-description-input">
+        <textarea matInput placeholder="Event Description" name="eventDescription" [(ngModel)]="_event.eventDescription" maxlength="600" rows="3" md-select-on-focus tabindex="-1"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <form name="eventImage" #eventImage="ngForm" autocomplete="off" align="center" class="event-form">
+    <div *ngIf="_event">
+      <image-upload (imageRemoved)="imageRemoved.emit($event)" (imageChanged)="imageChanged.emit($event)" [uploadedFile]="lastEventImage" buttonCaption="Select Event Image" tabindex="-1"></image-upload>
+    </div>
+  </form>
+
+  <div *ngIf="_event" align="center" class="toggle">
+    <div class="event-time">
+      <p-calendar name="eventDateTime" [(ngModel)]="_event.eventDateTime" showTime="true" hourFormat="12" showButtonBar="true" required tabindex="-1" [inline]="true">
+        <p-header>Event Time</p-header>
+      </p-calendar>
+    </div>
+    <mat-slide-toggle color="secondary" (change)="toggleOnlineOnly()" [checked]="_event.onlineOnly" tabindex="-1" >Online</mat-slide-toggle>
+  </div>
+
+  <form name="eventLocation" #eventLocation="ngForm" autocomplete="off" align="left" class="event-form">
+    <div *ngIf="_event && !_event.onlineOnly">
+      <mat-form-field>
+        <input matInput placeholder="Location Name" name="locationName" [(ngModel)]="_event.locationName" #locationName="ngModel" [required]="!_event.onlineOnly" tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Street Address" name="streetAddress" [(ngModel)]="_event.street" #streetAddress="ngModel" tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="City" name="city" [(ngModel)]="_event.city" #city="ngModel" [required]="!_event.onlineOnly" tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Province (State)" name="province" [(ngModel)]="_event.province" #province="ngModel" [required]="!_event.onlineOnly" tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Postal Code (Zip Code)" name="postalCode" [(ngModel)]="_event.postalCode" #postalCode="ngModel" [required]="!_event.onlineOnly" type="number" tabindex="-1"/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Country" name="country" [(ngModel)]="_event.country" #country="ngModel" [required]="!_event.onlineOnly" tabindex="-1"/>
+      </mat-form-field>
+    </div>
+  </form>
+</div>

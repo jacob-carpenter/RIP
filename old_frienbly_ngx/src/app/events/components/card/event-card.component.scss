@@ -1,0 +1,59 @@
+@import '../../../style-constants/style.constants.scss';
+
+.event-card {
+
+  .mat-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+    .title-text {
+      display: inline-block;
+
+      .mat-headline {
+        display: block;
+      }
+    }
+
+    .mat-card-avatar {
+      height: 80px;
+      width: 80px;
+      margin-right: 10px;
+    }
+
+    .mat-icon-button {
+      height: 50px;
+      width: 50px;
+      .mat-icon {
+        position: relative;
+        top: 8px;
+      }
+    }
+
+    .mat-card-actions {
+      display: block;
+      padding: 10px;
+      .mat-button {
+        border-radius: 5px;
+        margin: 5px;
+      }
+    }
+
+    .update-button {
+      background-color: rgb(220, 220, 220);
+    }
+    .accept-button {
+      background-color: rgb(180, 220, 190);
+    }
+    .maybe-button {
+      background-color: rgb(180, 180, 180);
+    }
+    .decline-button {
+      background-color: rgb(220, 180, 190);
+    }
+  }
+  .mat-card:hover {
+    box-shadow: 0 18px 35px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+}

@@ -1,0 +1,72 @@
+<div class="user-card-details">
+  <mat-card *ngIf="!loading">
+    <mat-card-title>
+      <div mat-card-avatar class="inline" matTooltip="User" mat-select-on-focus>
+        <image-display [imageId]="user.imageId" [rotation]="user.imageRotation"></image-display>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <mat-list class="inline header-content" dense flex>
+        <mat-list-item class="bold" style="text-transform: capitalize;">{{user.username}}</mat-list-item>
+        <mat-list-item *ngIf="!user.onlineOnly && (user.city != null || user.province != null)"><p>{{user.city}}, {{user.province}}</p></mat-list-item>
+        <mat-list-item *ngIf="!user.onlineOnly && (user.country != null)">{{user.country}}</mat-list-item>
+      </mat-list>
+      <span>
+        <div *ngIf="user.firstName || user.lastName" class="row-display">
+          <span class="bold" style="text-transform: capitalize;" *ngIf="user.firstName">{{user.firstName}}</span>
+          <span class="bold" style="text-transform: capitalize;" *ngIf="user.lastName">{{user.lastName}}</span>
+        </div>
+        <div class="row-display"><span class="semi-bold">Age - </span>{{age}}</div>
+        <div *ngIf="user.sex" style="text-transform: capitalize;" class="row-display"><span class="semi-bold">Gender - </span>{{SexType[user.sex].toLowerCase()}}</div>
+        <div *ngIf="user.lastActivity" class="row-display">
+          <span class="semi-bold">Last Active - </span>{{user.lastActivity | date:'MMM d, y h:mm a'}}
+        </div>
+      </span>
+      <div *ngIf="user.about">
+        <label class="tag-label semi-bold">About Me</label>
+        <textarea matInput class="about-me-text" placeholder="About Me" name="about" [(ngModel)]="user.about" #about="ngModel" [readonly]="true" tabindex="-1" rows="6"></textarea>
+      </div>
+      <div class="personal-tags" *ngIf="personalTags && personalTags.length > 0">
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="personalTags" [maxItems]="personalTags.length" tabindex="-1"></tag-input>
+      </div>
+      <div *ngIf="interestTags && interestTags.length > 0">
+        <label class="tag-label semi-bold">Interested In</label>
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="interestTags" [maxItems]="interestTags.length" tabindex="-1"></tag-input>
+      </div>
+      <div *ngIf="lookingForIndividualTags && lookingForIndividualTags.length > 0">
+        <label class="tag-label semi-bold">Looking for People Interested In</label>
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="lookingForIndividualTags" [maxItems]="lookingForIndividualTags.length" tabindex="-1"></tag-input>
+      </div>
+      <div *ngIf="lookingForGroupTags && lookingForGroupTags.length > 0">
+        <label class="tag-label semi-bold">Looking for Groups Interested In</label>
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="lookingForGroupTags" [maxItems]="lookingForGroupTags.length" tabindex="-1"></tag-input>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end" *ngIf="!hideOptions && !isBlocked && currentUser && currentUser.id != user.id">
+      <button mat-icon-button matTooltip="Report" class="action secondary" (click)="openReport()" tabindex="-1">
+        <span>
+          <mat-icon>feedback</mat-icon>
+        </span>
+      </button>
+      <button mat-icon-button matTooltip="Block" class="action secondary" (click)="openBlock()" tabindex="-1">
+        <span>
+          <mat-icon class="block-button">block</mat-icon>
+        </span>
+      </button>
+      <button mat-icon-button matTooltip="Message" class="action primary" (click)="openChat()" tabindex="1">
+        <span>
+          <mat-icon>chat_bubble_outline</mat-icon>
+        </span>
+      </button>
+    </mat-card-actions>
+
+      <mat-card-actions align="end" *ngIf="!hideOptions && isBlocked && currentUser && currentUser.id != user.id">
+        <button mat-icon-button matTooltip="Unblock" class="action secondary" (click)="unblock()" tabindex="1">
+          <span>
+            <mat-icon>announcement</mat-icon>
+          </span>
+        </button>
+      </mat-card-actions>
+  </mat-card>
+</div>

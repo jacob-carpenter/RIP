@@ -1,0 +1,4 @@
+<div class="chat-member" *ngIf="user">
+  <image-display [imageId]="user.imageId" [rotation]="user.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" [inline]="true"></image-display>
+  <label class="display">{{user.username}}</label>
+</div>

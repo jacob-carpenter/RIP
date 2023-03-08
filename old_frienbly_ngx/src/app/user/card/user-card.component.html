@@ -1,0 +1,17 @@
+<div class="user-card" (click)="openDetailView()">
+  <mat-card>
+    <mat-card-title>
+      <div mat-card-avatar class="inline">
+        <image-display [imageId]="user.imageId" [rotation]="user.imageRotation"></image-display>
+      </div>
+      <mat-list class="inline" dense flex>
+       <mat-list-item class="bold" style="text-transform: capitalize;">{{user.username}}</mat-list-item>
+       <mat-list-item *ngIf="!user.onlineOnly && (user.city != null || user.province != null)"><p>{{user.city}}, {{user.province}}</p></mat-list-item>
+       <mat-list-item *ngIf="!user.onlineOnly && (user.country != null)">{{user.country}}</mat-list-item>
+      </mat-list>
+    </mat-card-title>
+    <mat-card-content>
+      <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="cardTags" [maxItems]="cardTags.length"></tag-input>
+    </mat-card-content>
+  </mat-card>
+</div>

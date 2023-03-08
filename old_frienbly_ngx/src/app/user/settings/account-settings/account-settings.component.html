@@ -1,0 +1,60 @@
+<div class="account-settings">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div fxLayout="column" fxLayout.xs="column">
+    <mat-card class="main-card">
+      <mat-card-title align="center" i18n>Account Settings</mat-card-title>
+
+      <mat-card-content>
+        <div *ngIf="userDetails">
+          <mat-card class="flex-card">
+            <span type="fill-space"></span>
+            <form name="emailSettings" #emailSettings="ngForm" autocomplete="off">
+              <mat-error for="email" *ngIf="emailExists">Account with this email exists</mat-error>
+              <mat-form-field align="center">
+                <input matInput placeholder="Email" (ngModelChange)="emailExists = false" name="email" [(ngModel)]="model.email" #email="ngModel" required email="true" (keydown.space)="$event.preventDefault()"/>
+                <mat-error for="email" *ngIf="(emailSettings.form.submitted && (!model.email || model.email.length == 0 || !email.valid)) && !emailExists" type="error">Valid email is <strong>required</strong></mat-error>
+              </mat-form-field>
+              <mat-form-field align="center">
+                <input matInput placeholder="Confirm Email" (ngModelChange)="emailExists = false" name="confirmedEmail" [(ngModel)]="model.confirmedEmail" #confirmedEmail="ngModel" required email="true" (keydown.space)="$event.preventDefault()"/>
+                <mat-error for="confirmedEmail" *ngIf="(emailSettings.form.submitted && (!model.confirmedEmail || model.confirmedEmail.length == 0 || !confirmedEmail.valid)) && !emailExists" type="error">Confirmed Email must match</mat-error>
+              </mat-form-field>
+              <mat-card-actions align="center">
+                <button mat-button color="primary" (click)="changeEmailClicked()" [disabled]="!emailSettings.valid || model.email != model.confirmedEmail">Change Email</button>
+              </mat-card-actions>
+            </form>
+            <span type="fill-space"></span>
+          </mat-card>
+
+          <mat-card class="flex-card">
+            <span type="fill-space"></span>
+            <form name="passwordSettings" #passwordSettings="ngForm" autocomplete="off">
+              <mat-form-field align="center">
+                <input matInput placeholder="Current Password" name="currentPassword" type="password" [(ngModel)]="model.currentPassword" #currentPassword="ngModel" required minlength="4" maxlength="150"/>
+                <mat-error for="currentPassword" *ngIf="passwordSettings.form.submitted && (!model.currentPassword || model.currentPassword.length < 4 || !currentPassword.valid)">Current password must be valid</mat-error>
+              </mat-form-field>
+              <mat-form-field align="center">
+                <ng2-password-strength-bar class="password-strength-bar" [passwordToCheck]="model.newPassword"></ng2-password-strength-bar>
+                <input matInput placeholder="New Password" name="newPassword" type="password" [(ngModel)]="model.newPassword" #newPassword="ngModel" required minlength="5" maxlength="150"/>
+                <mat-error for="newPassword" *ngIf="passwordSettings.form.submitted && (!model.newPassword || model.newPassword.length < 5 || !newPassword.valid)">Password is <strong>required</strong> and must be atleast <strong>5</strong> characters</mat-error>
+              </mat-form-field>
+              <mat-form-field align="center">
+                <input matInput placeholder="Confirm New Password" name="confirmedNewPassword" type="password" [(ngModel)]="model.confirmedNewPassword" #confirmedNewPassword="ngModel" required minlength="5" maxlength="150"/>
+                <mat-error for="confirmedNewPassword" *ngIf="passwordSettings.form.submitted && (!model.confirmedNewPassword || model.confirmedNewPassword.length < 5 || !confirmedNewPassword.valid)">Confirmed password must match</mat-error>
+              </mat-form-field>
+              <mat-card-actions align="center">
+                <button mat-button color="primary" (click)="changePasswordClicked()" [disabled]="!passwordSettings.valid || model.newPassword != model.confirmedNewPassword">Change Password</button>
+              </mat-card-actions>
+            </form>
+            <span type="fill-space"></span>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-button color="primary" (click)="deactivateAccountClicked()" align="center">Deactivate Account</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

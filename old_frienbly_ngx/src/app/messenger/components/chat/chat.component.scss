@@ -1,0 +1,78 @@
+@import '../../../style-constants/style.constants.scss';
+
+.fill-viewport {
+  .chat-header {
+
+  }
+
+  .message-list {
+    position: absolute;
+    overflow: hidden;
+    height: calc(100% - 141px) !important;
+    height: -moz-calc(100% - 141px) !important;
+    height: -webkit-calc(100% - 141px) !important;
+  }
+
+  .chat-bar {
+
+  }
+}
+
+.chat {
+  position: relative;
+  height: 100%;
+  background-color: rgb(240, 240, 240);
+
+  .chat-header {
+    position: relative;
+    height: 48px;
+  }
+
+  .message-list {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 93px);
+    height: -moz-calc(100% - 93px);
+    height: -webkit-calc(100% - 93px);
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .chat-bar {
+    background-color: rgb(180, 180, 180);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    padding-bottom: 5px;
+  }
+}
+
+@keyframes (appear) {
+  from {
+    opacity: 0;
+    transform: translate(0px, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .fill-viewport {
+    height: calc(100vh - 56px);
+    height: -moz-calc(100vh - 56px);
+    height: -webkit-calc(100vh - 56px);
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .fill-viewport {
+    height: calc(100vh - 64px);
+    height: -moz-calc(100vh - 64px);
+    height: -webkit-calc(100vh - 64px);
+  }
+}

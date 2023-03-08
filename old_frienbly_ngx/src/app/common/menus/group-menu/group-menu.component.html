@@ -1,0 +1,27 @@
+<div class="group-menu">
+  <button type="menu-button" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Group Menu">
+    <mat-icon class="material-icons">group</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="createGroup()">
+      <mat-icon>group_add</mat-icon>
+      <label i18n>Create Group</label>
+    </button>
+    <button mat-menu-item *ngIf="groupService.getSelectedGroup()" (click)="aboutGroup()">
+      <mat-icon>group</mat-icon>
+      <label i18n>About {{groupService.getSelectedGroup().name}}</label>
+    </button>
+    <button mat-menu-item *ngIf="groupService.getSelectedGroup() && groupService.isUserAdminOfSelectedGroup()" (click)="modifyGroupMembers()">
+      <mat-icon>people_outline</mat-icon>
+      <label i18n>Modify {{groupService.getSelectedGroup().name}} Members</label>
+    </button>
+    <button mat-menu-item *ngIf="groupService.getSelectedGroup() && groupService.isUserAdminOfSelectedGroup()" (click)="modifyGroup()">
+      <mat-icon>group_work</mat-icon>
+      <label i18n>Modify {{groupService.getSelectedGroup().name}}</label>
+    </button>
+    <button mat-menu-item *ngIf="groupService.getSelectedGroup()" (click)="leaveGroup()">
+      <mat-icon>exit_to_app</mat-icon>
+      <label i18n>Leave {{groupService.getSelectedGroup().name}}</label>
+    </button>
+  </mat-menu>
+</div>

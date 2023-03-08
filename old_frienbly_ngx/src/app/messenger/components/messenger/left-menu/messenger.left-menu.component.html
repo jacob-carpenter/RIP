@@ -1,0 +1,76 @@
+<mat-sidenav class="messenger-left-menu" disableClose="!isMobile" #sidenav [opened]="!isMobile || (isMobile && isLeftMenuExpanded)" mode="side">
+  <mat-sidenav-content>
+    <div *ngIf="loading" type="floating-center">
+      <mat-spinner color="primary" align="center"></mat-spinner>
+    </div>
+
+    <div class="padding" *ngIf="!loading && activeChats && activeChats.length > 0">
+      <div *ngIf="chatMembers && chatMembers.length > 0">
+        <mat-expansion-panel class="chat-member-panel" [expanded]="false" [hideToggle]="false">
+          <mat-expansion-panel-header class="dark-menu-header">
+            <mat-panel-title>
+              <label type="dark-menu-label" class="bold">
+                Chat Members
+              </label>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list dense flex>
+            <mat-list-item *ngFor="let chatMember of getOrderedChatMembers(chatMembers)" (click)="openUserCard(chatMember)">
+              <label type="dark-menu-label" class="non-expansion-label chat-member">
+                <mat-icon class="logged-in-indicator" [ngClass]="{'logged-in': activeChatUserIds.indexOf(chatMember.id) >= 0, 'logged-out': activeChatUserIds.indexOf(chatMember.id) < 0}">donut_large</mat-icon>
+                <inline-user-display [user]="chatMember"></inline-user-display>
+              </label>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </div>
+
+      <mat-expansion-panel class="group-expansion-panel" *ngFor="let chat of getOrderedChats(activeChats, [ChatType.GROUP])" [expanded]="chatService.getSelectedChat() && (chatService.getSelectedChat() == chat || potentialGroupChatIdToGroupMemberChats[chat.chatId].indexOf(chatService.getSelectedChat()) >= 0)" [hideToggle]="false">
+        <mat-expansion-panel-header class="dark-menu-header">
+          <mat-panel-title>
+            <mat-icon class="unread-messages group-unread-messages" *ngIf="hasAnyUnreadMessages(chat)" (click)="navigateToMessenger()">new_releases</mat-icon>
+            <mat-icon class="star">star</mat-icon>
+            <label type="dark-menu-label" class="bold dark-menu-header-label">
+              <chat-menu-display class="group-heading" [chat]="chat" [users]="users" [groups]="groups"></chat-menu-display>
+            </label>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list dense flex>
+          <mat-list-item (click)="selectChat(chat, null, null, chat)" class="group-member-chat-list-item" [ngClass]="{'selected-list-item': chatService.getSelectedChat() && chatService.getSelectedChat() == chat }">
+            <mat-icon class="unread-messages" *ngIf="unreadChatIds.indexOf(chat.chatId) >= 0" (click)="navigateToMessenger()">new_releases</mat-icon>
+            <label type="dark-menu-label" class="non-expansion-label group-member-chat-title">
+              Group Chat
+            </label>
+          </mat-list-item>
+          <mat-list-item *ngFor="let sideChat of getOrderedChats(potentialGroupChatIdToGroupMemberChats[chat.chatId], [])" (click)="selectChat(sideChat, sideChat.sideUserId, sideChat.sideGroupId, chat) " [ngClass]="{'selected-list-item': chatService.getSelectedChat() && chatService.getSelectedChat() == sideChat }">
+            <mat-icon class="unread-messages" *ngIf="unreadChatIds.indexOf(sideChat.chatId) >= 0" (click)="navigateToMessenger()">new_releases</mat-icon>
+            <label type="dark-menu-label" class="non-expansion-label possible-group-member-chat-member">
+              <chat-menu-display [chat]="sideChat" [canCloseChat]="true" [users]="users" [groups]="groups" [mainUserId]="sideChat.sideUserId" [mainGroupId]="sideChat.sideGroupId"></chat-menu-display>
+            </label>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-nav-list dense flex>
+        <mat-list-item *ngFor="let chat of getOrderedChats(activeChats, [ChatType.USER])" (click)="selectChat(chat, null, null, null)" [ngClass]="{'selected-list-item': chatService.getSelectedChat() && chatService.getSelectedChat() == chat }">
+          <mat-icon class="unread-messages" *ngIf="unreadChatIds.indexOf(chat.chatId) >= 0" (click)="navigateToMessenger()">new_releases</mat-icon>
+          <mat-icon class="star non-expansion-star">star</mat-icon>
+          <label type="dark-menu-label" class="non-expansion-label single-item">
+            <chat-menu-display [chat]="chat" [users]="users" [groups]="groups" [hideLeftPadding]="true"></chat-menu-display>
+          </label>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <mat-nav-list dense flex>
+        <mat-list-item *ngFor="let chat of getOrderedChats(combineChats(getOrderedChats(activeChats, [ChatType.USER_EPHEMERAL]), potentialGroupChats), [])" (click)="selectChat(chat, chat.sideGroupId ? null : getTargetUserId(chat), chat.sideGroupId, null)" [ngClass]="{'selected-list-item': chatService.getSelectedChat() && chatService.getSelectedChat() == chat }">
+          <mat-icon class="unread-messages" *ngIf="unreadChatIds.indexOf(chat.chatId) >= 0" (click)="navigateToMessenger()">new_releases</mat-icon>
+          <label type="dark-menu-label" class="non-expansion-label single-item no-star" [ngClass]="{'no-margin-left': unreadChatIds.indexOf(chat.chatId) >= 0}">
+            <chat-menu-display [chat]="chat" [canCloseChat]="true" [users]="users" [groups]="groups" [mainUserId]="chat.sideUserId" [mainGroupId]="chat.sideGroupId" [hideUser]="chat.sideUserId || chat.sideGroupId"></chat-menu-display>
+          </label>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav>

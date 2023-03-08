@@ -1,0 +1,57 @@
+<mat-sidenav class="left-menu" disableClose="!isMobile" #sidenav [opened]="!isMobile || (isMobile && isLeftMenuExpanded)" mode="side">
+  <mat-sidenav-content>
+    <div *ngIf="loading" type="floating-center">
+      <mat-spinner color="primary" align="center"></mat-spinner>
+    </div>
+
+    <mat-nav-list flex>
+      <mat-list-item [routerLink]="['/' + homeRoutePath]" [ngClass]="{'selected-list-item': !groupService.getSelectedGroup()}"><label type="dark-menu-label" class="user-dashboard-label bold">My Search</label></mat-list-item>
+    </mat-nav-list>
+
+    <mat-expansion-panel [expanded]="true" [hideToggle]="false">
+      <mat-expansion-panel-header class="dark-menu-header">
+        <mat-panel-title matTooltip="Toggles affecting who can find me.">
+          <label type="dark-menu-label" class="bold">
+            Seeking
+          </label>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list dense flex>
+        <mat-list-item matTooltip="{{onlineOnlyToggleTooltip}}">
+          <label type="dark-menu-label" class="non-expansion-label">Online Only</label>
+          <mat-slide-toggle color="secondary" (change)="toggleOnlineOnly()" [checked]="userDetails && userDetails.onlineOnly" [disabled]="!onlineOnlyToggleEnabled"></mat-slide-toggle>
+        </mat-list-item>
+        <mat-list-item>
+          <label type="dark-menu-label" class="non-expansion-label" matTooltip="Allow others to search for you.">Visible to Users</label>
+          <mat-slide-toggle color="secondary" (change)="toggleSeekingIndividuals()" [checked]="userDetails && userDetails.lookingForIndividuals"></mat-slide-toggle>
+        </mat-list-item>
+        <mat-list-item>
+          <label type="dark-menu-label" class="non-expansion-label" matTooltip="Allow groups to search for you.">Visible to Groups</label>
+          <mat-slide-toggle color="secondary" (change)="toggleSeekingGroups()" [checked]="userDetails && userDetails.lookingForGroups"></mat-slide-toggle>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="groupService.getSelectedGroup()" [hideToggle]="false" *ngIf="currentGroups && currentGroups.length > 0">
+      <mat-expansion-panel-header class="dark-menu-header">
+        <mat-panel-title>
+          <label type="dark-menu-label" class="bold">
+            Group Searches
+          </label>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list dense flex>
+        <mat-list-item *ngFor="let groupMember of currentGroups;" (click)="groupSelected(groupMember.group)" [ngClass]="{'selected-list-item': groupService.getSelectedGroup() && groupService.getSelectedGroup().id == groupMember.group.id }">
+          <label type="dark-menu-label" class="non-expansion-label">
+            <div class="group-display" *ngIf="groupMember.group">
+              <image-display [imageId]="groupMember.groupDetails ? groupMember.groupDetails.imageId : null" [rotation]="groupMember.groupDetails ? groupMember.groupDetails.imageRotation : null" [defaultIconSize]="'30px'" [maxHeight]="'30px'" [defaultIcon]="'group_work'" [inline]="true"></image-display>
+              <label class="display" [ngClass]="{'has-image-text-display': groupMember.groupDetails && groupMember.groupDetails.imageId, 'small-font': groupMember.group.name.length > 12 }">{{groupMember.group.name}}</label>
+            </div>
+          </label>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </mat-sidenav-content>
+</mat-sidenav>

@@ -1,0 +1,11 @@
+<div class="dashboard">
+  <app-top-menu (leftMenuToggled)="leftMenuToggled()" ></app-top-menu>
+
+  <mat-sidenav-container class="content">
+    <app-left-menu [isLeftMenuExpanded]="isLeftMenuExpanded" [isMobile]="isMobile" (leftMenuToggled)="leftMenuToggled()"></app-left-menu>
+    <div class="viewport">
+      <viewport></viewport>
+      <app-footer class="footer"></app-footer>
+    </div>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,11 @@
+<div class="event-viewport">
+  <app-top-menu (leftMenuToggled)="leftMenuToggled()" ></app-top-menu>
+
+  <mat-sidenav-container class="content">
+    <event-left-menu [isLeftMenuExpanded]="isLeftMenuExpanded" [isMobile]="isMobile" ></event-left-menu>
+    <div class="viewport">
+      <event-dashboard></event-dashboard>
+      <app-footer class="footer"></app-footer>
+    </div>
+  </mat-sidenav-container>
+</div>

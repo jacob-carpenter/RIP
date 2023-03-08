@@ -1,0 +1,3 @@
+export enum TagType {
+  PERSONAL, INTERESTS, GROUP_SEARCH, USER_SEARCH
+}

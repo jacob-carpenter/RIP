@@ -1,0 +1,68 @@
+@import '../../../style-constants/style.constants.scss';
+
+.chat-message-input {
+  .chat-message {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #646464;
+    border-radius: 15px;
+
+    padding-top: 2px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+
+    .chat-field {
+      resize: none;
+      overflow: hidden;
+
+      width: calc(100% - 15px);
+
+      font-family: sans-serif;
+      font-size: 18px;
+
+      border-width: 0;
+      outline: none !important;
+    }
+
+    .emoticon-picker-button {
+      display: block;
+      position: absolute;
+      right: 8px;
+      top: 10px;
+    }
+
+    .emoticon-blocker {
+      display: block;
+      position: absolute;
+      right: 15px;
+      bottom: 255px;
+      width: calc(100% - 15px);
+    }
+  }
+
+  .mat-dialog-actions {
+    padding: 0;
+    padding-top: 5px;
+
+    .mat-icon-button {
+      width: 35px;
+      height: 35px;
+      margin-left: 10px;
+      background-color: rgb(130, 130, 130);
+      color: rgb(245, 245, 245);
+
+      mat-icon {
+        position: relative;
+        display: block;
+        font-size: 24px;
+        margin: auto;
+      }
+    }
+
+    .disabled {
+      background-color: rgb(180, 180, 180);
+    }
+  }
+}

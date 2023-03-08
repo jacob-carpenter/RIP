@@ -1,0 +1,16 @@
+<div class="event-attendee-dialog">
+    <div type="floating-center" *ngIf="loading">
+      <mat-spinner color="primary" align="center"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+      <h1 mat-dialog-title align="center" *ngIf="rsvpType == EventRsvpStatusType.ACCEPTED">Accepted Users</h1>
+      <h1 mat-dialog-title align="center" *ngIf="rsvpType == EventRsvpStatusType.MAYBE">Tentative Users</h1>
+      <h1 mat-dialog-title align="center" *ngIf="rsvpType == EventRsvpStatusType.DECLINED">Declined Users</h1>
+      <div mat-dialog-content align="start">
+        <div *ngFor="let user of users | orderBy: username">
+          <inline-user-display class="inline" [user]="user"></inline-user-display>
+        </div>
+      </div>
+    </div>
+</div>

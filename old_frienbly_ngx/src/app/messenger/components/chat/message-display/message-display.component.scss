@@ -1,0 +1,206 @@
+@import '../../../../style-constants/style.constants.scss';
+
+.message-list {
+  .date-header {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .date-seperator-line {
+      position: relative;
+      top: 12px;
+
+      border: 0;
+      border-bottom: 2px;
+      border-style: solid;
+      border-color: rgb(160, 160, 160);
+    }
+
+    .date-text {
+      position: relative;
+      display: inline-block;
+
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: rgb(240, 240, 240);
+      color: rgb(120, 120, 120);
+
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .chat-bubble:last-of-type {
+    padding-bottom: 5px;
+  }
+
+  .bold {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .chat-bubble {
+    background-color: rgb(240, 240, 240);
+    animation: appear 400ms;
+    color: rgb(20, 20, 20);
+    padding-left: 10px;
+
+    .user-message {
+      .left-image {
+        display: inline-flex;
+        width: 50px;
+      }
+
+      .left-image:hover {
+        cursor:pointer;
+      }
+
+      .message-header {
+        position: relative;
+        display: inline-flex;
+        border-radius: 10px;
+        padding: 5px;
+        width: auto;
+        top: -22px;
+        padding-left: 5px;
+
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+
+        .logged-in-indicator {
+          position: relative;
+          height: 16px;
+          width: 16px;
+          left: -3px;
+          top: 0;
+          margin-left: 5px;
+          font-size: 16px;
+        }
+
+        .logged-in {
+          color: rgb(120, 200, 180);
+        }
+
+        .logged-out {
+          color: rgb(120, 120, 120);
+        }
+
+        .time-label {
+          position: relative;
+          top: 4px;
+          padding-left: 5px;
+          color: rgb(120, 120, 120);
+
+          font-family: sans-serif;
+          font-size: 11px;
+        }
+      }
+
+      .message-body {
+        position: relative;
+        top: -21px;
+        margin-left: 62px;
+
+        .message-text {
+          font-family: sans-serif;
+          font-size: 16px;
+        }
+
+        .event-card {
+          margin-right: 20px;
+          padding-bottom: 20px;
+          padding-top: 20px;
+        }
+
+        .giphy-image-container {
+          .giphy-text {
+            display: block;
+            color: rgb(120, 120, 120);
+            font-family: sans-serif;
+            font-size: 11px;
+          }
+
+          .giphy-image {
+            display: block;
+            max-height: 260px;
+            max-width: calc(100% - 50px);
+            max-width: -moz-calc(100% - 50px);
+            max-width: -webkit-calc(100% - 50px);
+          }
+          .giphy-image:hover {
+            cursor:pointer;
+          }
+
+          .giphy-disclaimer {
+            display: inline-block;
+            padding-top: 10px;
+            .powered-by-giphy-image {
+              display: inline-block;
+            }
+          }
+          .giphy-disclaimer:hover {
+            cursor:pointer;
+          }
+        }
+      }
+    }
+
+    .system-message {
+      .message-body {
+        position: relative;
+        top: -21px;
+        margin-left: 60px;
+
+        .message-text {
+          color: rgb(120, 120, 120);
+
+          font-family: sans-serif;
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .message-header:hover {
+      background-color: rgb(190, 190, 190);
+      cursor:pointer;
+      .display:hover {
+        cursor:pointer;
+      }
+      .time-label:hover {
+        cursor:pointer;
+      }
+    }
+  }
+
+  .sent-by-me {
+    background-color: rgb(230, 230, 230);
+  }
+
+  .chat-tips {
+    padding: 20px;
+    text-align: center;
+    color: rgb(120, 120, 120);
+
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .logged-in-indicator {
+    top: 3px;
+  }
+
+  .giphy-image {
+    max-height: 200px !important;
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .logged-in-indicator {
+  }
+}

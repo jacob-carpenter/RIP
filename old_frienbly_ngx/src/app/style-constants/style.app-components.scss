@@ -1,0 +1,141 @@
+app-top-menu {
+  position: relative;
+  top: 0;
+  margin-bottom: auto;
+  display: block;
+}
+
+app-footer {
+  position: relative;
+  display: block;
+  bottom: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+ng2-dropdown-menu {
+  z-index: 9999 !important;
+  .ng2-dropdown-menu {
+    z-index: 9999 !important;
+  }
+}
+
+mat-spinner {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  z-index: 1;
+}
+
+.search-filter-dialog {
+  .mat-dialog-container  {
+    border-radius: 15px;
+    padding: 10px;
+  }
+}
+
+.chat-dialog {
+  .mat-dialog-container {
+    border-radius: 15px;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.details-card-dialog {
+  .mat-dialog-container {
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.event-settings-dialog {
+  padding: 10px;
+  .mat-dialog-container {
+    border-radius: 10px;
+    overflow-x: hidden;
+  }
+}
+
+.event-card-dialog {
+  .mat-dialog-container {
+    border-radius: 10px;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+.event-attendee-dialog {
+  .mat-dialog-container {
+    border-radius: 10px;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+$mobile-max-screen-size: 600px;
+@media screen and (max-width: $mobile-max-screen-size) {
+  .event-settings-dialog {
+    min-width: 320px;
+    padding-left: 0;
+    .mat-dialog-container {
+      min-width: 320px;
+    }
+  }
+
+  .details-card-dialog {
+    min-width: 300px;
+    .mat-dialog-container {
+      min-width: 300px;
+    }
+  }
+
+  .event-card-dialog {
+    min-width: 300px;
+    .mat-dialog-container {
+      min-width: 300px;
+    }
+  }
+
+  .chat-dialog {
+    min-width: 300px;
+    .mat-dialog-container {
+      min-width: 300px;
+    }
+  }
+
+  .details-card-dialog {
+    min-width: 300px;
+    .mat-dialog-container {
+      min-width: 300px;
+    }
+  }
+
+  .event-attendee-dialog {
+    min-width: 300px;
+    .mat-dialog-container {
+      min-width: 300px;
+    }
+  }
+}
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .details-card-dialog {
+    min-width: 360px !important;
+  }
+
+  .chat-dialog {
+    min-width: 500px !important;
+  }
+
+  .event-settings-dialog {
+    min-width: 500px !important;
+  }
+
+  .event-card-dialog {
+    min-width: 500px !important;
+  }
+}

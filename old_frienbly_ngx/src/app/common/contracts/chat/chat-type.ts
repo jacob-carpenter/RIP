@@ -1,0 +1,4 @@
+
+export enum ChatType {
+  GROUP, USER, USER_EPHEMERAL, GROUP_EPHEMERAL
+}

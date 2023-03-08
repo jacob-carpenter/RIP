@@ -1,0 +1,65 @@
+<div class="message-list">
+  <div *ngIf="dateBasedMessageBuckets && dateBasedMessageBuckets.length > 0 && !loading">
+    <div *ngFor="let dateMessages of dateBasedMessageBuckets">
+      <div class="date-header">
+        <div class="date-seperator-line"></div>
+        <div class="date-text">
+          {{dateMessages.dateId | date:'EEEE, MMMM d'}}
+        </div>
+      </div>
+
+      <div *ngFor="let messageContainer of dateMessages.messages; let i = index;">
+        <div *ngIf="chatUsers[messageContainer.userId]" >
+          <div [ngClass]="{'sent-by-me': messageContainer.userId == currentUser.id}" class="chat-bubble column is-10">
+            <div class="user-message">
+              <div class="message-header-wrapper" *ngIf="i == 0 || dateMessages.messages[i - 1].userId != messageContainer.userId || isLongElapsedSentDateTime(dateMessages.messages[i - 1], messageContainer)">
+                <div class="left-image" (click)="openUserCard(chatUsers[messageContainer.userId])">
+                  <image-display [imageId]="chatUsers[messageContainer.userId].imageId" [rotation]="chatUsers[messageContainer.userId].imageRotation" [defaultIconSize]="'45px'" [maxHeight]="'45px'" [inline]="true"></image-display>
+                </div>
+                <div class="message-header" (click)="openUserCard(chatUsers[messageContainer.userId])">
+                  <mat-icon class="logged-in-indicator" [ngClass]="{'logged-in': activeChatUserIds.indexOf(messageContainer.userId) >= 0, 'logged-out': activeChatUserIds.indexOf(messageContainer.userId) < 0}">donut_large</mat-icon>
+                  <label class="display" style="text-transform: capitalize;">{{chatUsers[messageContainer.userId].username}}</label>
+                  <label class="time-label">{{messageContainer.sentDateTime | date:'shortTime'}}</label>
+                </div>
+              </div>
+              <div class="message-body" *ngIf="!messageContainer.system && !messageContainer.giphyUrl && !messageContainer.eventId">
+                <div class="message-text">
+                  {{messageContainer.message}}
+                </div>
+              </div>
+              <div class="message-body" *ngIf="!messageContainer.system && messageContainer.eventId && eventIdToEvent[messageContainer.eventId] && !eventIdToEvent[messageContainer.eventId].isCancelled">
+                <div class="event-card">
+                  <event-card [event]="eventIdToEvent[messageContainer.eventId]" [currentUser]="currentUser"></event-card>
+                </div>
+              </div>
+              <div class="message-body" *ngIf="!messageContainer.system && messageContainer.giphyUrl">
+                <div class="giphy-image-container">
+                  <label class="giphy-text">{{messageContainer.message}}</label>
+                  <img class="giphy-image" (click)="navigateToUrl(messageContainer.giphyUrl)" src="{{messageContainer.giphyUrl}}?api_key={{environment.giphy.api_key}}" [ngStyle]="{'height': messageContainer.imageHeight + 'px;'}"/>
+
+                  <span class="giphy-disclaimer" (click)="navigateToUrl('https://giphy.com/')">
+                    <img class="powered-by-giphy-image" src="../../../../../assets/images/giphy/Powered_By_Giphy.png" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="system-message" *ngIf="messageContainer.system">
+              <div class="message-body" *ngIf="!messageContainer.requestId">
+                <div class="message-text">
+                  {{messageContainer.message}}
+                </div>
+              </div>
+              <div class="message-body" *ngIf="messageContainer.requestId">
+                <message-display-request [requestId]="messageContainer.requestId" [message]="messageContainer"></message-display-request>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-tips" *ngIf="(!dateBasedMessageBuckets || dateBasedMessageBuckets.length == 0) && !loading">
+    Why don't you start the chat with a giphy? Type '/giphy Hi' to get the conversation started!
+  </div>
+</div>

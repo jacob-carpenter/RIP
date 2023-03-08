@@ -1,0 +1,62 @@
+@import '../../style-constants/style.constants.scss';
+
+.registration {
+  position: relative;
+  display: flex;
+  padding: 20px;
+
+  .password-strength-bar {
+    display: block;
+    position: relative;
+    padding-top: 15px;
+    margin-left: -15px;
+  }
+
+  .terms-and-conditions {
+    display: inline-block;
+    position: relative;
+    left: -20px;
+    font-weight: 600;
+    font-size: 14px;
+    padding-top: 10px;
+
+    max-width: 260px;
+  }
+
+  .password-hide-button {
+    position: absolute;
+    top: 35px;
+    right: -5px;
+
+    .mat-icon {
+
+    }
+  }
+
+  .container {
+    padding-left: 40px;
+  }
+
+  .form-icon {
+    position: absolute;
+    top: 7px;
+    left: -45px;
+  }
+
+  .form-icon-lock {
+    top: 43px;
+  }
+
+
+  mat-form-field {
+    display: block;
+  }
+
+  mat-form-field[type="date-picker"] {
+    padding-top: 15px;
+  }
+
+  mat-error {
+    padding-bottom: 10px;
+  }
+}

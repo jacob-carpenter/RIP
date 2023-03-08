@@ -1,0 +1,23 @@
+<div class="login">
+  <span type="fill-space"></span>
+  <div class="container">
+    <form name="loginForm" (ngSubmit)="handleLoginFormSubmission()" #loginForm="ngForm" autocomplete="off" align="center">
+      <mat-error *ngIf="loginForm.form.submitted && !loginForm.form.valid">Please enter all required fields.</mat-error>
+      <mat-error *ngIf="loginFailed">Invalid Username or Password</mat-error>
+      <mat-form-field>
+        <input matInput placeholder="Username" name="username" [(ngModel)]="model.username" #username="ngModel" required (keydown.space)="$event.preventDefault()" autocomplete="off" />
+        <mat-error for="username" *ngIf="loginForm.form.submitted && (!model.username || model.username.length == 0 || !username.valid)">Username is <strong>required</strong></mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" name="password" type="password" [(ngModel)]="model.password" #password="ngModel" required minlength="3" maxlength="150" autocomplete="off" />
+        <mat-error for="password" *ngIf="loginForm.form.submitted && (!model.password || model.password.length < 3 || !password.valid)">Valid password is <strong>required</strong></mat-error>
+      </mat-form-field>
+      <button type="button" mat-button color="secondary" (click)="forgotPassword()">Forgot Password</button>
+      <div *ngIf="!isCaptchaVerified()">
+        <re-captcha (captchaResponse)="handleCaptchaResponse($event)" [site_key]="getSiteKey()" ></re-captcha>
+        <div *ngIf="loginForm.form.submitted && !isCaptchaVerified()">Please validate the Captcha</div>
+      </div>
+    </form>
+  </div>
+  <span type="fill-space"></span>
+</div>

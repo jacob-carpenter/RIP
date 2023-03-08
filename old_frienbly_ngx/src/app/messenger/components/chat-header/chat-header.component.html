@@ -1,0 +1,18 @@
+<div *ngIf="loading" type="floating-center">
+  <mat-spinner color="primary" align="center"></mat-spinner>
+</div>
+
+<div *ngIf="!loading" class="chat-header-background">
+  <div class="chat-header" *ngIf="currentChatUser" (click)="openUserCard()">
+    <div class="chat-member">
+      <image-display [imageId]="currentChatUser.imageId" [rotation]="currentChatUser.imageRotation" [defaultIconSize]="'35px'" [maxHeight]="'35px'" [inline]="true" [ngClass]="{'icon-display': !currentChatUser.imageId}"></image-display>
+      <label class="display">{{currentChatUser.username}}</label>
+    </div>
+  </div>
+  <div class="chat-header" *ngIf="currentChatGroup" (click)="openGroupCard()">
+    <div class="chat-member">
+      <image-display [imageId]="currentChatGroup.imageId" [rotation]="currentChatGroup.imageRotation" [defaultIcon]="'group_work'" [defaultIconSize]="'35px'" [maxHeight]="'35px'" [inline]="true" [ngClass]="{'icon-display': !currentChatGroup.imageId}"></image-display>
+      <label class="display">{{currentChatGroup.name}}</label>
+    </div>
+  </div>
+</div>

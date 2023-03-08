@@ -1,0 +1,25 @@
+$top-menu-height: 64px;
+$left-menu-size: 280px;
+$minimum-content-height: 90vh;
+
+$max-text-box-width: 220px;
+
+$mobile-max-screen-size: 600px;
+
+
+@import './style.app-components.scss';
+@import './style.general-components.scss';
+@media screen and (max-width: $mobile-max-screen-size) {
+  @import './devices/style.constants.desktop.scss';
+}
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  @import './devices/style.constants.mobile.scss';
+}
+
+@import './style.mixins.scss';
+
+
+#Menu dropdown
+div[class="cdk-overlay-pane"] {
+  top: $top-menu-height - 8 !important;
+}

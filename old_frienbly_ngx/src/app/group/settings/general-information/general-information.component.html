@@ -1,0 +1,103 @@
+<div class="general-information">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div fxLayout="column" fxLayout.xs="column">
+
+    <mat-card>
+      <mat-card-title align="center" i18n>Information</mat-card-title>
+
+      <mat-card-content>
+        <form name="accountSharedInformation" #accountSharedInformation="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <mat-form-field>
+              <input matInput placeholder="Name" name="name" [(ngModel)]="_groupDetails.name" #name="ngModel" maxlength="36" required />
+            </mat-form-field>
+
+            <div style="padding-bottom: 10px;">
+              <mat-slide-toggle color="secondary" (change)="_groupDetails.privateInd = !_groupDetails.privateInd" [checked]="_groupDetails.privateInd">Invite Only</mat-slide-toggle>
+            </div>
+
+            <div>
+              <mat-slide-toggle color="secondary" (change)="_groupDetails.useAge = !_groupDetails.useAge" [checked]="_groupDetails.useAge">Use Suggested Age</mat-slide-toggle>
+              <mat-form-field class="suggested-age-field" *ngIf="_groupDetails.useAge">
+                <input matInput placeholder="Suggested Age" name="suggestedAge" [(ngModel)]="_groupDetails.suggestedAge" #suggestedAge="ngModel" type="number" min="18" required />
+              </mat-form-field>
+            </div>
+
+            <mat-form-field style="width: 90%;">
+              <textarea matInput placeholder="Description" name="description" [(ngModel)]="_groupDetails.description" #description="ngModel" maxlength="600" rows="8"></textarea>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title align="center" i18n>Group Image</mat-card-title>
+
+      <mat-card-content>
+        <form name="accountImage" #accountImage="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <image-upload (imageRemoved)="imageRemoved.emit($event)" (imageChanged)="imageChanged.emit($event)" [uploadedFile]="lastGroupImage" buttonCaption="Select Group Image"></image-upload>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title align="center" i18n>Group Tags</mat-card-title>
+
+      <!-- Clear button -->
+
+      <mat-card-content>
+        <form name="interestedInForm" #interestedInForm="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <tag-input name="interestedInTags" theme="bootstrap" secondaryPlaceholder="Add Tags (Enter to Add)" separatorKeyCodes="[9, 13]" (onAdd)="addTag(TagType.INTERESTS, $event)" (onRemove)="removeTag(TagType.INTERESTS, $event)" [ngModel]="inputInterestedInTags">
+              <tag-input-dropdown [autocompleteObservable]="getCommonTagItems"> </tag-input-dropdown>
+            </tag-input>
+
+            <div mat-dialog-actions align="center">
+              <button mat-button (click)="clearTags(TagType.INTERESTS)" color="secondary" tabindex="-1">Clear Tags</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title align="center" i18n>Location</mat-card-title>
+
+      <mat-card-content>
+        <span type="fill-space"></span>
+
+        <div *ngIf="_groupDetails" align="center" class="toggle">
+          <mat-slide-toggle color="secondary" (change)="toggleOnlineOnly()" [checked]="_groupDetails.onlineOnly">Online Only</mat-slide-toggle>
+        </div>
+
+        <form name="accountLocationForm" #accountLocationForm="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <mat-form-field>
+              <input matInput placeholder="Street Address" name="streetAddress" [(ngModel)]="_groupDetails.street" #streetAddress="ngModel" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="City" name="city" [(ngModel)]="_groupDetails.city" #city="ngModel" [required]="!_groupDetails.onlineOnly" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Province (State)" name="province" [(ngModel)]="_groupDetails.province" #province="ngModel" [required]="!_groupDetails.onlineOnly" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Postal Code (Zip Code)" name="postalCode" [(ngModel)]="_groupDetails.postalCode" #postalCode="ngModel" [required]="!_groupDetails.onlineOnly" type="number" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Country" name="country" [(ngModel)]="_groupDetails.country" #country="ngModel" [required]="!_groupDetails.onlineOnly" />
+            </mat-form-field>
+          </div>
+        </form>
+
+        <span type="fill-space"></span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

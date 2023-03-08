@@ -1,0 +1,22 @@
+@import '../../../style-constants/style.constants.scss';
+
+.chat-dialog {
+  height: 600px;
+  width: 400px;
+  .chat {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .chat-dialog {
+    height: 450px;
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .chat-dialog {
+    width: 400px;
+  }
+}

@@ -1,0 +1,44 @@
+<div class="group-card-details">
+  <mat-card *ngIf="!loading">
+    <mat-card-title>
+      <div mat-card-avatar class="inline" matTooltip="Group" mat-select-on-focus>
+        <image-display [imageId]="group.imageId" [rotation]="group.imageRotation" [defaultIcon]="'group_work'"></image-display>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <mat-list class="inline header-content" dense flex>
+        <mat-list-item class="bold" style="text-transform: capitalize;">{{group.name}}</mat-list-item>
+        <mat-list-item *ngIf="!group.onlineOnly && (group.city != null || group.province != null)"><p>{{group.city}}, {{group.province}}</p></mat-list-item>
+        <mat-list-item *ngIf="!group.onlineOnly && (group.country != null)">{{group.country}}</mat-list-item>
+      </mat-list>
+      <div *ngIf="group.description">
+        <label class="tag-label semi-bold">Description</label>
+        <textarea matInput placeholder="Description" name="description" [(ngModel)]="group.description" #description="ngModel" rows="6" [readonly]="true" tabindex="-1"></textarea>
+      </div>
+      <div class="group-tags" *ngIf="groupTags && groupTags.length > 0">
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="groupTags" [maxItems]="groupTags.length" tabindex="-1"></tag-input>
+      </div>
+      <div *ngIf="lookingForIndividualTags && lookingForIndividualTags.length > 0">
+        <label class="tag-label semi-bold">Looking for People Interested In</label>
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="lookingForIndividualTags" [maxItems]="lookingForIndividualTags.length" tabindex="-1"></tag-input>
+      </div>
+      <div *ngIf="lookingForGroupTags && lookingForGroupTags.length > 0">
+        <label class="tag-label semi-bold">Looking for Groups Interested In</label>
+        <tag-input name="tags" theme="bootstrap" placeholder="" secondaryPlaceholder="" [ngModel]="lookingForGroupTags" [maxItems]="lookingForGroupTags.length" tabindex="-1"></tag-input>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end" *ngIf="!hideOptions">
+      <button mat-icon-button matTooltip="Join" *ngIf="!group.privateInd" class="action secondary" (click)="joinGroup()" tabindex="-1">
+        <span>
+          <mat-icon class="join-button">add_circle_outline</mat-icon>
+        </span>
+      </button>
+      <button mat-icon-button matTooltip="Message" class="action primary" (click)="openChat()" tabindex="1">
+        <span>
+          <mat-icon>chat_bubble_outline</mat-icon>
+        </span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

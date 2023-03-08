@@ -1,0 +1,21 @@
+<div class="footer-bar">
+    <div class="footer" fxLayout="row" fxLayout.xs="column">
+      <mat-card fxFlex="100%;" fxFlex.xs="100%">
+        <mat-card-actions align="center">
+          <button mat-button color="primary" class="btn btn-outline-primary" (click)="navigateToSafetyPage()">Safety</button>
+          <button mat-button color="primary" class="btn btn-outline-primary" (click)="navigateToTermsOfServicePage()">Terms of Service</button>
+          <button mat-button color="primary" class="btn btn-outline-primary" (click)="navigateToPrivacyPolicyPage()">Privacy Policy</button>
+          <button mat-button color="primary" class="btn btn-outline-primary" (click)="navigateToFeedbackPage()" *ngIf="isUserLoggedIn()">Feedback</button>
+          <button mat-button color="primary" class="btn btn-outline-primary" (click)="navigateToAboutUsPage()">About Us</button>
+
+          <a href="https://www.frienbly.com/safety" style="display:none;">Safety Tips</a>
+          <a href="https://www.frienbly.com/terms" style="display:none;">Terms of Service</a>
+          <a href="https://www.frienbly.com/privacypolicy" style="display:none;">Privacy Policy</a>
+          <a href="https://www.frienbly.com/aboutus" style="display:none;">About Us</a>
+        </mat-card-actions>
+        <mat-card-content align="center">
+          <label type="text" color="primary">2017 © frienbly ® - all rights reserved. - frienbly Alpha Release 0.0.1</label>
+        </mat-card-content>
+      </mat-card>
+    </div>
+</div>

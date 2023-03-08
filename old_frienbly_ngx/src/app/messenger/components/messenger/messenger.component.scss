@@ -1,0 +1,37 @@
+@import '../../../style-constants/style.constants.scss';
+
+.messenger {
+  .content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .viewport {
+    position: relative;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .messenger {
+    .content {
+      margin-top: 56px;
+
+      .viewport {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .messenger {
+    .content {
+      margin-top: 64px;
+
+      .viewport {
+        margin-left: $left-menu-size;
+      }
+    }
+  }
+}

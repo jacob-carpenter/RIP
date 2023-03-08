@@ -1,0 +1,51 @@
+@import '../../style-constants/style.constants.scss';
+
+.group-member-management {
+  padding: 20px;
+
+  .mat-dialog-content {
+    padding: 24px;
+
+    .button {
+      display: inline-flex;
+      background-color: rgb(220, 220, 220);
+      border-radius: 10px;
+      top: -5px;
+    }
+
+    .inline {
+      display: inline-flex;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .group-member-management {
+    padding: 10px;
+
+    .mat-dialog-content {
+      padding: 24px;
+
+      inline-user-display {
+        display: block !important;
+        position: relative;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+
+      .button {
+        display: inline-flex;
+        background-color: rgb(220, 220, 220);
+        border-radius: 10px;
+        top: -5px;
+      }
+
+      .inline {
+        display: inline-flex;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

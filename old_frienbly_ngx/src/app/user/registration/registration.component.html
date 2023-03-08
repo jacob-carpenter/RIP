@@ -1,0 +1,55 @@
+<div class="registration">
+  <span type="fill-space"></span>
+  <div class="container" >
+    <form name="registrationForm" (ngSubmit)="handleRegistrationFormSubmission()" #registrationForm="ngForm" novalidate autocomplete="off" align="center">
+      <mat-error *ngIf="registrationForm.form.submitted && (!registrationForm.form.valid || !isCaptchaVerified())">Please enter all required fields.</mat-error>
+      <mat-error *ngIf="registrationFailed">Failed to register user</mat-error>
+      <mat-form-field>
+        <mat-icon class="form-icon">person</mat-icon>
+        <input matInput placeholder="Username" (ngModelChange)="usernameExists = false" name="username" [(ngModel)]="model.username" #username="ngModel" maxlength="36" required (keydown.space)="$event.preventDefault()" autocomplete="off" />
+        <mat-error for="username" *ngIf="(registrationForm.form.submitted && (!model.username || model.username.length == 0 || !username.valid)) && !usernameExists" type="error">Username is <strong>required</strong></mat-error>
+      </mat-form-field>
+      <mat-error for="username" *ngIf="usernameExists">Account with this username exists</mat-error>
+
+      <mat-form-field>
+        <mat-icon class="form-icon">email</mat-icon>
+        <input matInput placeholder="Email" (ngModelChange)="emailExists = false" name="email" [(ngModel)]="model.email" #email="ngModel" required type="email" email="true" (keydown.space)="$event.preventDefault()" autocomplete="off" />
+        <mat-error for="email" *ngIf="(registrationForm.form.submitted && (!model.email || model.email.length == 0 || !email.valid)) && !emailExists" type="error">Valid email is <strong>required</strong></mat-error>
+      </mat-form-field>
+      <mat-error for="email" *ngIf="emailExists">Account with this email exists</mat-error>
+
+      <mat-form-field autocomplete="off">
+        <ng2-password-strength-bar class="password-strength-bar" [passwordToCheck]="model.password"></ng2-password-strength-bar>
+
+        <mat-icon class="form-icon form-icon-lock">lock</mat-icon>
+        <input matInput placeholder="Password" name="password" [type]="isPasswordVisible ? 'text' : 'password'" [(ngModel)]="model.password" #password="ngModel" required minlength="5" maxlength="150" autocomplete="off"/>
+        <mat-error for="password" *ngIf="registrationForm.form.submitted && (!model.password || model.password.length < 5 || !password.valid)">Password is <strong>required</strong> and must be atleast <strong>5</strong> characters</mat-error>
+
+        <button mat-icon-button type="button" [ngSwitch]="isPasswordVisible" (click)="isPasswordVisible = !isPasswordVisible" class="password-hide-button">
+          <mat-icon *ngSwitchCase="isPasswordVisible == false">visibility_off</mat-icon>
+          <mat-icon *ngSwitchCase="isPasswordVisible == true">visibility</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field type="date-picker">
+        <mat-icon class="form-icon">date_range</mat-icon>
+        <input matInput [matDatepicker]="birthdate" placeholder="Birthdate" name="birthdate" [(ngModel)]="model.birthdate" #birthdate="ngModel" required [max]="maxDate" autocomplete="off"/>
+        <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
+        <mat-datepicker #birthdate startView="year" [startAt]="maxDate"></mat-datepicker>
+        <mat-error for="birthdate" *ngIf="registrationForm.form.submitted && !birthdate.valid">Must be 18 years old.</mat-error>
+      </mat-form-field>
+
+      <div class="terms-and-conditions">
+        <div class="mat-checkbox-label">
+          By clicking "Sign Up", you agree to the <a title="Terms and Conditions" href="https://www.frienbly.com/terms">Terms of Use</a>.
+        </div>
+      </div>
+
+      <div *ngIf="!isCaptchaVerified()">
+        <re-captcha (captchaResponse)="handleCaptchaResponse($event)" [site_key]="getSiteKey()" ></re-captcha>
+        <mat-error *ngIf="registrationForm.form.submitted && !isCaptchaVerified()">Must Validate Via Captcha to Register</mat-error>
+      </div>
+    </form>
+  </div>
+  <span type="fill-space"></span>
+</div>

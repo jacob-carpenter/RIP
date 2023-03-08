@@ -1,0 +1,16 @@
+<div class="user-block-management">
+
+  <div type="floating-center" *ngIf="loading">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <h1 mat-dialog-title align="center">Manage Blocked Users</h1>
+    <div mat-dialog-content align="start">
+      <div *ngFor="let user of users | orderBy: username">
+        <inline-user-display class="inline" [user]="user"></inline-user-display>
+        <button mat-button class="inline unblock" color="secondary" (click)="unblockUser(user)">Unblock</button>
+      </div>
+    </div>
+  </div>
+</div>

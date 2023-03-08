@@ -1,0 +1,14 @@
+<div class="messenger">
+  <app-top-menu (leftMenuToggled)="leftMenuToggled()" ></app-top-menu>
+
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <mat-sidenav-container class="content" *ngIf="activeChats && !loading">
+    <messenger-left-menu [isLeftMenuExpanded]="isLeftMenuExpanded" [isMobile]="isMobile" [chats]="activeChats"></messenger-left-menu>
+    <div class="viewport" *ngIf="selectedChat">
+      <chat [fillViewport]="true" [chat]="selectedChat" [targetUserId]="targetUserId" [targetGroupId]="targetGroupId"></chat>
+    </div>
+  </mat-sidenav-container>
+</div>

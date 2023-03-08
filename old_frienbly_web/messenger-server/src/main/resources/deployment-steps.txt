@@ -1,0 +1,37 @@
+Websocket proxy to be nginx.
+
+ELB to use 443 and 90 ports to port 90 - proxy to websocket port 9080.
+
+On server deploy update /etc/nginx/nginx.conf:
+    Add:
+        server {
+            listen 90 proxy_protocol;
+            set_real_ip_from 10.0.0.0/8;
+            real_ip_header proxy_protocol;
+            charset utf-8;
+            location / {
+              proxy_pass http://localhost:9080;
+              proxy_http_version 1.1;
+
+              proxy_set_header 'Access-Control-Allow-Origin' 'https://www.frienbly.com';
+              proxy_set_header 'Access-Control-Allow-Credentials' 'true';
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection "upgrade";
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
+    Restart nginx:
+        sudo service nginx restart
+
+Initial deploy of elb instance -
+    aws elb create-load-balancer-policy --load-balancer-name awseb-e-a-AWSEBLoa-1LSI2AUQ3FFYV --policy-name my-ProxyProtocol-policy --policy-type-name ProxyProtocolPolicyType --policy-attributes AttributeName=ProxyProtocol,AttributeValue=true
+    aws elb set-load-balancer-policies-for-backend-server --load-balancer-name awseb-e-a-AWSEBLoa-1LSI2AUQ3FFYV --instance-port 443 --policy-names my-ProxyProtocol-policy
+    aws elb set-load-balancer-policies-for-backend-server --load-balancer-name awseb-e-a-AWSEBLoa-1LSI2AUQ3FFYV --instance-port 90 --policy-names my-ProxyProtocol-policy
+
+
+
+
+This was the original guide - https://gist.github.com/obolton/071be4c926f9cf0b6fd8

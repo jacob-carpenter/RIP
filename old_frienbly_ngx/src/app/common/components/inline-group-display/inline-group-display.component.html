@@ -1,0 +1,4 @@
+<div class="chat-member" *ngIf="group">
+  <image-display [imageId]="group.imageId" [rotation]="group.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" [inline]="true"></image-display>
+  <label class="display">{{group.name}}</label>
+</div>

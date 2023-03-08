@@ -1,0 +1,9 @@
+<div class="chat-menu-display" *ngIf="display && (user || group)">
+  <image-display (click)="false" [imageId]="user.imageId" [rotation]="user.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" *ngIf="user && !hideUser" [inline]="true" ></image-display>
+  <image-display (click)="false" [imageId]="group.imageId" [rotation]="group.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" [defaultIcon]="'group_work'" *ngIf="group && !hideGroup" [inline]="true"></image-display>
+  <label class="display" [ngClass]="{'display-padding-left': (user && !hideUser && user.imageId) || (group && !hideGroup && group.imageId), 'hide-left-padding': hideLeftPadding && !((user && user.imageId) || (group && group.imageId)), 'small-left-padding': hideLeftPadding && ((user && user.imageId) || (group && group.imageId)), 'small-font': display.length > 12}">{{display}}</label>
+
+  <button *ngIf="canCloseChat" mat-icon-button class="close-chat-button" matTooltip="Close Chat" align="end">
+    <mat-icon class="icon" (click)="closeChat($event)">close</mat-icon>
+  </button>
+</div>

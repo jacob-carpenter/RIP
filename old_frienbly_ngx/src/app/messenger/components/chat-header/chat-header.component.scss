@@ -1,0 +1,48 @@
+@import '../../../style-constants/style.constants.scss';
+
+.chat-header-background {
+  background-color: #b4b4b4;
+}
+
+.chat-header {
+  background-color: rgba(100, 120, 140, 0.5);
+  color: rgb(240, 240, 240);
+  height: 48px;
+  .chat-member {
+    position: relative;
+    display: inline-flex;
+    height: 35px;
+    width: 100%;
+    padding-left: 10px;
+
+    .display {
+      position: relative;
+      top: 8px;
+
+      text-transform: capitalize;
+
+      font-family: sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .display:hover {
+      cursor:pointer;
+    }
+
+    image-display {
+      position: relative;
+      left: -5px;
+      padding-right: 10px;
+      height: 40px !important;
+      width: 40px !important;
+      top: 2px !important;
+    }
+    image-display:hover {
+      cursor:pointer;
+    }
+
+    .icon-display {
+      top: 2px;
+    }
+  }
+}

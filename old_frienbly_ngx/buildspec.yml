@@ -1,0 +1,25 @@
+version: 0.1
+environment_variables:
+    plaintext:
+        S3_BUCKET: "frienbly.com"
+        BUILD_ENV: "prod"
+phases:
+    install:
+        commands:
+            - echo Installing source NPM dependencies...
+            - npm install
+            - npm install -g @angular/cli
+    build:
+        commands:
+            - echo Build started on `date`
+            - ng build --aot --target=production --extract-css=false --prod --env=${BUILD_ENV}
+    post_build:
+         commands:
+            - aws s3 rm s3://${BUILD_ENV}.${S3_BUCKET} --recursive
+            - aws s3 cp dist s3://${BUILD_ENV}.${S3_BUCKET} --recursive
+            - echo Build completed on `date`
+artifacts:
+    files:
+        - '**/*'
+    base-directory: 'dist*'
+    discard-paths: yes

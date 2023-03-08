@@ -1,0 +1,36 @@
+@import '../../style-constants/style.constants.scss';
+
+.event-viewport {
+  .content {
+    position: relative;
+    overflow: hidden;
+
+    .viewport {
+      height: auto;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .event-viewport {
+    .content {
+      margin-top: 56px;
+
+      .viewport {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .event-viewport {
+    .content {
+      margin-top: 64px;
+
+      .viewport {
+        margin-left: $left-menu-size;
+      }
+    }
+  }
+}

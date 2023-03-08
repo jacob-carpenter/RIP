@@ -1,0 +1,4 @@
+
+export enum RequestType {
+    FORM_CONNECTION, JOIN_GROUP, DISSOLVE_CONNECTION
+}

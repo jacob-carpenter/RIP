@@ -1,0 +1,24 @@
+version: 0.1
+environment_variables:
+    plaintext:
+        S3_MESSENGER_BUCKET: "frienbly.messenger-server.com"
+        S3_RESOURCE_BUCKET: "frienbly.resource-server.com"
+        BUILD_ENV: "prod"
+phases:
+  build:
+    commands:
+        - echo Build started on `date`
+        - mvn package
+  post_build:
+     commands:
+        - ls
+        - aws s3 rm s3://${BUILD_ENV}.${S3_MESSENGER_BUCKET} --recursive
+        - aws s3 cp messenger-server/target/messenger-server-1.0-SNAPSHOT.war s3://${BUILD_ENV}.${S3_MESSENGER_BUCKET}
+        - aws s3 rm s3://${BUILD_ENV}.${S3_RESOURCE_BUCKET} --recursive
+        - aws s3 cp resource-server/target/resource-server-1.0-SNAPSHOT.war s3://${BUILD_ENV}.${S3_RESOURCE_BUCKET}
+        - echo Build completed on `date`
+artifacts:
+  files:
+      - '**/*'
+  base-directory: './'
+  discard-paths: yes

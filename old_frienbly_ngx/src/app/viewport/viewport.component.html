@@ -1,0 +1,5 @@
+<div class="viewport">
+  <search-page *ngIf="currentViewportState === ViewportState.SEARCH"></search-page>
+  <user-settings *ngIf="currentViewportState === ViewportState.USER_SETTINGS"></user-settings>
+  <group-settings *ngIf="currentViewportState === ViewportState.GROUP_SETTINGS"></group-settings>
+</div>

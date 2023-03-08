@@ -1,0 +1,32 @@
+<mat-sidenav class="event-left-menu" disableClose="!isMobile" #sidenav [opened]="!isMobile || (isMobile && isLeftMenuExpanded)" mode="side">
+  <mat-sidenav-content>
+    <div *ngIf="loading" type="floating-center">
+      <mat-spinner color="primary" align="center"></mat-spinner>
+    </div>
+
+    <div class="padding" *ngIf="!loading && events && events.length > 0">
+      <mat-nav-list dense flex>
+        <mat-list-item matTooltip="{{onlineOnlyToggleTooltip}}">
+          <label type="dark-menu-label" class="non-expansion-label" (click)="eventSettingsService.showDeclined = !eventSettingsService.showDeclined">Show Declined Events</label>
+          <mat-slide-toggle color="secondary" (change)="eventSettingsService.showDeclined = !eventSettingsService.showDeclined" [checked]="eventSettingsService.showDeclined"></mat-slide-toggle>
+        </mat-list-item>
+        <div *ngIf="eventSettingsService.showDeclined">
+          <mat-list-item *ngFor="let event of events" (click)="openEventDialog(event)">
+            <image-display (click)="false" [imageId]="event.imageId" [rotation]="event.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" *ngIf="event && event.imageId" [inline]="true" ></image-display>
+            <label type="dark-menu-label" class="non-expansion-label" style="text-transform: capitalize;" [ngClass]="{'text-with-image': event && event.imageId}">
+              {{event.eventName}}
+            </label>
+          </mat-list-item>
+        </div>
+        <div *ngIf="!eventSettingsService.showDeclined">
+          <mat-list-item *ngFor="let event of getAcceptedOrTentativeEvents(events)" (click)="openEventDialog(event)">
+            <image-display (click)="false" [imageId]="event.imageId" [rotation]="event.imageRotation" [defaultIconSize]="'30px'" [maxHeight]="'30px'" *ngIf="event && event.imageId" [inline]="true" ></image-display>
+            <label type="dark-menu-label" class="non-expansion-label" style="text-transform: capitalize;" [ngClass]="{'text-with-image': event && event.imageId}">
+              {{event.eventName}}
+            </label>
+          </mat-list-item>
+        </div>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav>

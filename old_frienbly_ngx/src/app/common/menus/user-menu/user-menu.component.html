@@ -1,0 +1,23 @@
+<div class="user-menu">
+  <button type="menu-button" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="User Menu">
+    <mat-icon class="material-icons">person</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="displayPersonalCard()">
+      <mat-icon>person</mat-icon>
+      <label i18n>About Me</label>
+    </button>
+    <button mat-menu-item (click)="navigateToAccountSettings()">
+      <mat-icon>settings</mat-icon>
+      <label i18n>User Settings</label>
+    </button>
+    <button mat-menu-item (click)="manageBlockedUsers()" *ngIf="blockedIds && blockedIds.length > 0">
+      <mat-icon>block</mat-icon>
+      <label i18n>Manage Blocked Users</label>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <label i18n>Logout</label>
+    </button>
+  </mat-menu>
+</div>

@@ -1,0 +1,8 @@
+<div class="messenger-menu">
+  <span matTooltip="Messenger">
+    <mat-icon class="unread-messages" *ngIf="unreadChatIds && unreadChatIds.length > 0" (click)="navigateToMessenger()">new_releases</mat-icon>
+    <button type="menu-button" mat-icon-button (click)="navigateToMessenger()">
+      <mat-icon class="material-icons">question_answer</mat-icon>
+    </button>
+  </span>
+</div>

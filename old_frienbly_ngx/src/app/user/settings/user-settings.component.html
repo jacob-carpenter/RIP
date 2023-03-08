@@ -1,0 +1,37 @@
+<div class="user-settings">
+  <div class="top-bar" type="bar" align="center">
+    <span type="fill-space"></span>
+    <div class="wrap">
+      <button mat-button color="secondary" class="btn border-right" (click)="transitionState(UserSettingsState.GENERAL_INFORMATION)">
+        <mat-icon type="error" *ngIf="!generalInformationValid">error_outline</mat-icon>
+        General Information
+      </button>
+      <button mat-button color="secondary" class="btn border-right border-left" (click)="transitionState(UserSettingsState.SEARCH_PREFERENCES)">
+        <mat-icon type="error" *ngIf="!searchPreferencesValid">error_outline</mat-icon>
+        Search Preferences
+      </button>
+      <button mat-button color="secondary" class="btn border-left" (click)="transitionState(UserSettingsState.ACCOUNT_SETTINGS)">
+        <mat-icon type="error" *ngIf="!accountSettingsValid">error_outline</mat-icon>
+        Account Settings
+      </button>
+    </div>
+    <span type="fill-space"></span>
+  </div>
+  <mat-error *ngIf="isErrored">An error has occurred loading user details.</mat-error>
+
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div class="card-container" *ngIf="updatedUserDetails">
+    <settings-general-information *ngIf="currentSettingsState == UserSettingsState.GENERAL_INFORMATION" [userDetails]="updatedUserDetails" (validityStateChanged)="generalInformationValidStateChanged($event)" (imageRemoved)="imageRemoved($event)" (imageChanged)="imageChanged($event)"></settings-general-information>
+    <settings-search-preferences *ngIf="currentSettingsState == UserSettingsState.SEARCH_PREFERENCES" [userDetails]="updatedUserDetails" (validityStateChanged)="searchPreferencesValidStateChanged($event)" ></settings-search-preferences>
+    <settings-account-settings *ngIf="currentSettingsState == UserSettingsState.ACCOUNT_SETTINGS" [userDetails]="updatedUserDetails" (validityStateChanged)="accountSettingsValidStateChanged($event)" ></settings-account-settings>
+  </div>
+
+  <div class="bottom-bar" type="bar" align="center" *ngIf="updatedUserDetails">
+    <span type="fill-space"></span>
+      <button mat-button color="secondary" class="save-button" (click)="handleSave()" [disabled]="!generalInformationValid || !searchPreferencesValid || !accountSettingsValid">Save Information</button>
+    <span type="fill-space"></span>
+  </div>
+</div>

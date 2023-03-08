@@ -1,0 +1,38 @@
+@import '../../../style-constants/style.constants.scss';
+
+.image-display {
+  position: relative;
+  padding: 10px;
+
+  .material-icons {
+    position: relative;
+    left: 5px;
+    top: 25px;
+    border-radius: 10px;
+  }
+
+  .img-ul-image {
+    border-radius: 10px;
+    position: relative;
+    top: 30px;
+    left: 10px;
+  }
+
+  .inline-icon {
+    padding-right: 8px;
+    top: 5px !important;
+    left: -5px;
+    height: -moz-calc(100% - 5px);
+    height: -webkit-calc(100% - 5px);
+    height: calc(100% - 5px);
+    width: auto !important;
+    margin: auto !important;
+  }
+
+  .inline-image {
+    top: 5px !important;
+    left: -5px;
+    margin: auto;
+    border-radius: 100% !important;
+  }
+}

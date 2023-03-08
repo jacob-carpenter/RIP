@@ -1,0 +1,53 @@
+@import '../../../../../style-constants/style.constants.scss';
+
+.chat-menu-display {
+  position: relative;
+  display: inline-flex;
+  height: 40px;
+  width: 100%;
+
+  .display {
+    padding-left: 10px;
+    top: 12px;
+    position: relative;
+    height: calc(100% - 10px);
+    height: -moz-calc(100% - 10px);
+    height: -webkit-calc(100% - 10px);
+    width: 100%;
+
+    text-transform: capitalize;
+  }
+
+  .display-padding-left {
+    padding-left: 17px;
+  }
+
+  .hide-left-padding {
+    padding-left: 0 !important;
+  }
+
+  .small-left-padding {
+    padding-left: 7px !important;
+  }
+
+  .close-chat-button {
+    right: 0;
+    margin-left: auto;
+  }
+
+  .small-font {
+    top: 13px;
+    font-size: 12px;
+  }
+}
+
+.chat-menu-display:hover {
+  cursor: pointer;
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+
+  .chat-menu-display {
+    max-width: 235px;
+  }
+}

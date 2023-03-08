@@ -1,0 +1,40 @@
+<div class="feedback-page">
+  <app-top-menu></app-top-menu>
+
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div class="content" align="center">
+    <div class="viewport">
+      <div class="content-cards">
+        <mat-card fxFlex="100%" fxFlex.xs="100%" *ngIf="feedback">
+          <mat-card-title-group>
+              <mat-card-title>Give Feedback</mat-card-title>
+          </mat-card-title-group>
+
+          <mat-card-content>
+            <form name="feedbackForm" #feedbackForm="ngForm" autocomplete="off" align="center">
+              <mat-form-field>
+                <mat-select placeholder="Feedback Type" name="feedbackType" [(ngModel)]="feedback.feedbackType" #feedbackType="ngModel" tabindex="-1">
+                  <mat-option *ngFor="let type of feedbackTypes" [value]="type.value">
+                    {{type.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="width: 90%;">
+                <textarea matInput placeholder="Feedback" name="feedbackText" [(ngModel)]="feedback.feedback" #feedbackText="ngModel" maxlength="600" rows="8" tabindex="-1"></textarea>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+
+          <mat-card-actions align="center">
+            <button mat-button (click)="sendFeedback()" color="primary" tabindex="-1" [disabled]="!feedback || !feedback.feedback || feedback.feedback.length == 0">Submit</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,59 @@
+<div class="search-preferences">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div fxLayout="column" fxLayout.xs="column">
+    <mat-card>
+      <mat-card-title align="center" i18n>Seeking Individual Tags</mat-card-title>
+
+      <!-- Copy from general button -->
+      <!-- Clear button -->
+
+      <mat-card-content>
+        <div *ngIf="_groupDetails" align="center" class="toggle">
+          <mat-slide-toggle color="secondary" (change)="toggleLookingForIndividuals()" [checked]="_groupDetails.lookingForIndividuals">Visible to Users</mat-slide-toggle>
+        </div>
+
+        <form name="individualPreferencesForm" #individualPreferencesForm="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <tag-input name="individualTags" theme="bootstrap" secondaryPlaceholder="Add Tags (Enter to Add)" separatorKeyCodes="[9, 13]" (onAdd)="addTag(TagType.USER_SEARCH, $event)" (onRemove)="removeTag(TagType.USER_SEARCH, $event)" [ngModel]="inputIndividualSearchTags">
+              <tag-input-dropdown [autocompleteObservable]="getCommonTagItems"> </tag-input-dropdown>
+            </tag-input>
+
+            <div mat-dialog-actions align="center">
+              <button mat-button (click)="addTags(TagType.USER_SEARCH, TagType.INTERESTS)" color="secondary" tabindex="-1">Copy Interest Tags</button>
+              <button mat-button (click)="clearTags(TagType.USER_SEARCH)" color="secondary" tabindex="-1">Clear Tags</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title align="center" i18n>Seeking Group Tags</mat-card-title>
+
+      <!-- Copy from general button -->
+      <!-- Clear button -->
+
+      <mat-card-content>
+        <div *ngIf="_groupDetails" align="center" class="toggle">
+          <mat-slide-toggle color="secondary" (change)="toggleLookingForGroups()" [checked]="_groupDetails.lookingForGroups">Visible to Groups</mat-slide-toggle>
+        </div>
+
+        <form name="groupPreferencesForm" #groupPreferencesForm="ngForm" autocomplete="off" align="center">
+          <div *ngIf="_groupDetails">
+            <tag-input name="groupTags" theme="bootstrap" secondaryPlaceholder="Add Tags (Enter to Add)" separatorKeyCodes="[9, 13]" (onAdd)="addTag(TagType.GROUP_SEARCH, $event)" (onRemove)="removeTag(TagType.GROUP_SEARCH, $event)" [ngModel]="inputGroupSearchTags">
+              <tag-input-dropdown [autocompleteObservable]="getCommonTagItems"> </tag-input-dropdown>
+            </tag-input>
+
+            <div mat-dialog-actions align="center">
+              <button mat-button (click)="addTags(TagType.GROUP_SEARCH, TagType.INTERESTS)" color="secondary" tabindex="-1">Copy Interest Tags</button>
+              <button mat-button (click)="clearTags(TagType.GROUP_SEARCH)" color="secondary" tabindex="-1">Clear Tags</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

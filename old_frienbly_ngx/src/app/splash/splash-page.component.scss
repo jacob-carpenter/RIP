@@ -1,0 +1,192 @@
+@import '../style-constants/style.constants.scss';
+
+.splash {
+  .content {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(180, 180, 180, .6);
+    flex-flow: column nowrap;
+    flex-direction: column;
+
+    .viewport {
+      height: auto;
+    }
+
+    .monster-image {
+      display: inline-block;
+      height: 50px;
+    }
+
+    .monster-welcome-image {
+      position: relative;
+      top: 15px;
+      margin-top: -15px;
+      height: 60px;
+    }
+
+    .monster-signup-image {
+      padding-left: 10px;
+    }
+
+    .monster-action-image {
+      height: 80px;
+    }
+
+    .content-cards {
+      max-width: 1280px;
+      padding: 10px;
+    }
+
+    .mat-card {
+      margin: 6px;
+      border-radius: 5px;
+      box-shadow: 0 5px 7px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+      .mat-card-footer {
+        margin-top: 40px;
+        margin-bottom: 40px;
+
+        a {
+          padding-right: 10px;
+        }
+      }
+    }
+    .mat-card:hover {
+      box-shadow: 0 18px 35px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+
+    .image-card {
+      .image-container {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .mat-card-image {
+        margin-top: 0;
+      }
+    }
+
+    .fill-space {
+      margin: auto;
+    }
+
+    .registration-arrow-container {
+      padding-top: 20px;
+      width: 70%;
+    }
+
+    .sign-up-title {
+      background-color: rgba(225, 240, 255, 0.9);
+
+      padding-bottom: 8px;
+      padding-top: 8px;
+
+      font-weight: 600;
+      font-size: 36px;
+    }
+
+    .inline-title {
+      display: inline-block;
+    }
+
+    .login-button {
+      color: black;
+      background-color: rgb(225, 240, 255);
+      border-width: 4px;
+      border-style: solid;
+      border-color: rgb(170, 195, 215);
+    }
+
+    .hidden-login-button {
+      color: rgb(60, 60, 60);
+      background-color: rgba(225, 240, 255, 0.15);
+      border-width: 0px;
+    }
+
+    .registration-button {
+      color: black;
+      background-color: rgb(225, 240, 255);
+      border-width: 4px;
+      border-style: solid;
+      border-color: rgb(170, 195, 215);
+    }
+
+    .hidden-registration-button {
+      color: rgb(60, 60, 60);
+      background-color: rgba(225, 240, 255, 0.15);
+      border-width: 0px;
+    }
+
+    .material-icons {
+      font-size: 62px;
+      width: 100px;
+      color: rgb(117, 117, 117);
+    }
+
+    .smaller-title {
+      font-size: 18px;
+    }
+
+    button {
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      border-radius: 20px !important;
+      background-color: rgb(235, 235, 235);
+    }
+  }
+}
+
+@media screen and (max-width: 335px) {
+  .splash {
+    .inline-title {
+      display: block !important;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  .splash {
+    .content {
+      margin-top: 56px;
+      height: -moz-calc(100% - 56px);
+      height: -webkit-calc(100% - 56px);
+      height: calc(100% - 56px);
+
+      .mat-card-title-group {
+        position: relative;
+        display: block;
+        left: auto;
+        right: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .monster-welcome-image {
+        display: block;
+        top: 0px;
+        margin-top: 0px;
+      }
+
+      .monster-signup-image {
+        position: relative;
+        bottom: -15px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  .splash {
+    .content {
+      margin-top: 64px;
+      height: -moz-calc(100% - 64px);
+      height: -webkit-calc(100% - 64px);
+      height: calc(100% - 64px);
+
+      .monster-signup-image {
+        position: absolute;
+      }
+    }
+  }
+}

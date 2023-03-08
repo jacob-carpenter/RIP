@@ -1,0 +1,24 @@
+<div class="top-menu-bar">
+  <mat-toolbar color="primary" class="top-menu">
+    <button *ngIf="isUserLoggedIn() && isMobile" (click)="toggleLeftMenu()" type="menu-button" mat-icon-button matTooltip="Expand Left Menu">
+      <mat-icon class="material-icons">menu</mat-icon>
+    </button>
+
+    <div [routerLink]="['/' + homeRoutePath]" class="title">
+      <div *ngIf="!isUserLoggedIn() || (isUserLoggedIn() && !isMobile)" class="title-text">
+        <img class="logo" src="../../../../favicon.ico" type="image/x-icon" >
+        <div class="top-menu-title" >
+          <label>frienbly</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-action-buttons">
+      <event-menu class="menu-item" *ngIf="isUserLoggedIn() && selectedMenuType != MenuType.EVENTS && hasEvents"></event-menu>
+      <messenger-menu class="menu-item" *ngIf="isUserLoggedIn() && selectedMenuType != MenuType.MESSENGER && hasChats"></messenger-menu>
+      <search-menu class="menu-item" *ngIf="isUserLoggedIn() && selectedMenuType != MenuType.SEARCH"></search-menu>
+      <group-menu class="menu-item" *ngIf="isUserLoggedIn()"></group-menu>
+      <user-menu class="menu-item" *ngIf="isUserLoggedIn()"></user-menu>
+    </div>
+  </mat-toolbar>
+</div>

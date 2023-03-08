@@ -1,0 +1,20 @@
+<div class="message-display-request">
+  <mat-card *ngIf="!loading && !request.accepted">
+    <mat-card-content align="center">
+      <div class="content-text">
+        <div class="mat-headline" style="text-transform: capitalize;">{{message.message}}</div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-button class="update-button" (click)="acceptRequest()" tabindex="-1" *ngIf="canAccept">
+        {{getAcceptText()}}
+      </button>
+
+      <button mat-button class="disabled-button" tabindex="-1" *ngIf="!canAccept" disabled="true">
+        Waiting On Response
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="mat-headline" style="text-transform: capitalize;" *ngIf="!loading && request.accepted">{{message.message}}</div>
+</div>

@@ -1,0 +1,16 @@
+<div class="group-member-management">
+  <div type="floating-center" *ngIf="loading">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <h1 mat-dialog-title align="center">Manage Group Users</h1>
+    <div mat-dialog-content align="start">
+      <div *ngFor="let groupMember of groupMembers">
+        <inline-user-display class="inline" [user]="groupMember.user"></inline-user-display>
+        <button mat-button class="inline button" color="secondary" (click)="promoteToAdmin(groupMember)" [disabled]="groupMember.user.id == currentUser.id || groupMember.groupMemberType == GroupMemberType.ADMIN">Promote</button>
+        <button mat-button class="inline button" color="secondary" (click)="remove(groupMember)" [disabled]="groupMember.user.id == currentUser.id">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>

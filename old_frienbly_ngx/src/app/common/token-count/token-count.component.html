@@ -1,0 +1,6 @@
+<div class="token-count">
+  <label type="dark-menu-label">
+    <mat-icon class="static-icon" [ngClass]="{'low-count': tokenCount < lowTokenCount, 'med-count': tokenCount < medTokenCount && tokenCount >= lowTokenCount, 'normal-count': tokenCount >= medTokenCount}">data_usage</mat-icon>
+    <label type="dark-menu-label" class="floating-text">{{tokenCount}}</label>
+  </label>
+</div>

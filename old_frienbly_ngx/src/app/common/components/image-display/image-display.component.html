@@ -1,0 +1,5 @@
+<span class="image-display">
+  <mat-icon mat-card-image *ngIf="!imageSrc || loading" class="material-icons" [ngStyle]="{'font-size': defaultIconSize}" [ngClass]="{'inline-icon': inline}">{{ defaultIcon }}</mat-icon>
+  <img *ngIf="imageSrc && !inline" mat-card-image class="img-ul-image" [src]="imageSrc" [ngStyle]="{'transform': 'rotate(' + rotation + 'deg)', 'max-height': maxHeight, 'max-width': maxHeight}"/>
+  <img *ngIf="imageSrc && inline" mat-card-image class="img-ul-image inline-image" [src]="imageSrc" [ngStyle]="{'transform': 'rotate(' + rotation + 'deg)', 'height': maxHeight, 'width': maxHeight}" />
+</span>

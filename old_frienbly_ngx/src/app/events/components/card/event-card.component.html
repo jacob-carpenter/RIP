@@ -1,0 +1,92 @@
+<div class="event-card">
+  <div *ngIf="loading" type="floating-center">
+    <mat-spinner color="primary" align="center"></mat-spinner>
+  </div>
+
+  <mat-card *ngIf="!loading">
+    <mat-card-title>
+      <img mat-card-avatar *ngIf="imageSrc" class="event-image" [src]="imageSrc" [ngStyle]="{'transform': 'rotate(' + event.imageRotation + 'deg)'}"/>
+      <div class="title-text">
+        <div class="mat-headline" style="text-transform: capitalize;">{{event.eventName}}</div>
+        <div class="mat-headline" >
+          {{event.eventDateTime | date:'MMM d, y h:mm a'}}
+        </div>
+        <div class="mat-headline" >
+          <button mat-icon-button matTooltip="View Attendees" class="accept-button" (click)="openAttendies(EventRsvpStatusType.ACCEPTED)" tabindex="-1">
+            <label>
+              {{ getRsvpCount(EventRsvpStatusType.ACCEPTED) }}
+            </label>
+            <span>
+              <mat-icon>event_available</mat-icon>
+            </span>
+          </button>
+          <button mat-icon-button matTooltip="View Tentative" class="maybe-button" (click)="openAttendies(EventRsvpStatusType.MAYBE)" tabindex="-1">
+            <label>
+              {{ getRsvpCount(EventRsvpStatusType.MAYBE) }}
+            </label>
+            <span>
+              <mat-icon>help_outline</mat-icon>
+            </span>
+          </button>
+          <button  mat-icon-button matTooltip="View Declined" class="decline-button" (click)="openAttendies(EventRsvpStatusType.DECLINED)" tabindex="-1">
+            <label>
+              {{ getRsvpCount(EventRsvpStatusType.DECLINED) }}
+            </label>
+            <span>
+              <mat-icon>event_busy</mat-icon>
+            </span>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div style="word-wrap: break-word;">
+        {{event.eventDescription}}
+      </div>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <span *ngIf="event.onlineOnly">
+        <span class="mat-headline">Online Meetup</span>
+      </span>
+      <span *ngIf="!event.onlineOnly">
+        <div class="mat-headline">{{event.locationName}}</div>
+        <div>
+          <span class="mat-subhead">{{event.street}}</span>
+        </div>
+        <div>
+          <span class="mat-subhead">{{event.city}}, </span>
+          <span class="mat-subhead">{{event.province}} </span>
+          <span class="mat-subhead">{{event.postalCode}}</span>
+        </div>
+        <div>
+          <span class="mat-subhead">{{event.country}}</span>
+        </div>
+      </span>
+    </mat-card-content>
+    <mat-card-actions align="end">
+
+      <button mat-button class="update-button" (click)="openSettingsView()" tabindex="-1"  *ngIf="event.sentByUserId == currentUser.id">
+        Update Event
+      </button>
+
+      <button mat-button class="accept-button" (click)="accept()" tabindex="-1">
+        <mat-icon *ngIf="currentUserEventRsvp && currentUserEventRsvp.rsvpStatusType == EventRsvpStatusType.ACCEPTED">
+          check
+        </mat-icon>
+        Attend
+      </button>
+      <button mat-button class="maybe-button" (click)="maybe()" tabindex="-1">
+        <mat-icon *ngIf="currentUserEventRsvp && currentUserEventRsvp.rsvpStatusType == EventRsvpStatusType.MAYBE">
+          check
+        </mat-icon>
+        Maybe
+      </button>
+      <button mat-button class="decline-button" (click)="decline()" tabindex="-1">
+        <mat-icon *ngIf="currentUserEventRsvp && currentUserEventRsvp.rsvpStatusType == EventRsvpStatusType.DECLINED">
+          check
+        </mat-icon>
+        Decline
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

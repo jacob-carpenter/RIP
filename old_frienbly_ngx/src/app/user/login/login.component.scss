@@ -1,0 +1,14 @@
+@import '../../style-constants/style.constants.scss';
+
+.login {
+  position: relative;
+  display: flex;
+  padding: 20px;
+
+  mat-form-field {
+    display: block;
+  }
+  mat-error {
+    padding-bottom: 10px;
+  }
+}

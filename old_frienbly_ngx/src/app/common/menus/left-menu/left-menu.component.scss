@@ -1,0 +1,125 @@
+@import '../../../style-constants/style.constants.scss';
+
+mat-sidenav {
+  position: fixed;
+  background-color: rgb(75, 75, 75);
+
+  ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+  }
+
+  .mat-nav-list {
+    padding-top: 0px;
+  }
+
+  $list-item-color: rgb(75, 75, 75);
+  mat-list-item {
+    background-color: $list-item-color;
+
+    mat-slide-toggle {
+      right: 0;
+      margin-top: 4px;
+    }
+  }
+
+  mat-expansion-panel {
+    background-color: $list-item-color;
+  }
+
+  .selected-list-item {
+    background-color: rgb(60, 60, 60);
+  }
+
+  label {
+    width: 100%;
+  }
+
+  .non-expansion-label {
+    font-size: 14px;
+  }
+
+  .bold {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .user-dashboard-label {
+    margin-left: 8px;
+  }
+
+  .token-counter {
+    height: 110px !important;
+    .mat-list-item-content {
+      height: 110px !important;
+    }
+
+    .token-count-container {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin-right: 10px;
+      token-count {
+        top: 30px;
+        margin: auto;
+      }
+    }
+  }
+
+  .small-font {
+    font-size: 12px;
+  }
+
+  .ad-button {
+    border-radius: 15px;
+    font-size: 800;
+    color: white;
+    background-color: #00897b;
+  }
+
+  .group-display {
+    position: relative;
+    display: inline-flex;
+    height: 40px;
+    width: 100%;
+
+    .display {
+      padding-left: 14px;
+      top: 10px;
+      position: relative;
+      height: calc(100% - 10px);
+      height: -moz-calc(100% - 10px);
+      height: -webkit-calc(100% - 10px);
+
+      text-transform: capitalize;
+    }
+
+    .has-image-text-display {
+      padding-left: 20px;
+    }
+
+    image-display {
+      width: 45px;
+    }
+  }
+
+}
+
+::ng-deep .dark-menu-header > .mat-expansion-indicator:after {
+  color: white;
+}
+
+@media screen and (max-width: $mobile-max-screen-size) {
+  mat-sidenav {
+    width: 100%;
+    top: 56px;
+  }
+}
+
+@media screen and (min-width: $mobile-max-screen-size + 1) {
+  mat-sidenav {
+    width: $left-menu-size;
+    top: 63px;
+  }
+}

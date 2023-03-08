@@ -1,0 +1,114 @@
+<div class="search-filter">
+  <h1 mat-dialog-title>Filter</h1>
+  <mat-spinner *ngIf="loading" ></mat-spinner>
+  <div mat-dialog-content *ngIf="filterCriteria">
+    <form name="filterForm" #filterForm="ngForm" autocomplete="off">
+      <div>
+        <!-- Search Type -->
+        <div>
+          <mat-slide-toggle color="secondary" (change)="toggleSearchForUsers()" [checked]="filterCriteria.searchForUsers" tabindex="-1">Search for Users</mat-slide-toggle>
+        </div>
+
+        <div class="toggle">
+          <mat-slide-toggle color="secondary" (change)="toggleSearchForGroups()" [checked]="filterCriteria.searchForGroups" tabindex="-1">Search for Groups</mat-slide-toggle>
+        </div>
+
+        <div class="toggle">
+          <mat-slide-toggle color="secondary" (change)="filterCriteria.includeInactives = !filterCriteria.includeInactives" [checked]="filterCriteria.includeInactives" tabindex="-1">Include Inactive</mat-slide-toggle>
+        </div>
+      </div>
+
+      <div *ngIf="filterCriteria.searchForUsers && !filterCriteria.searchForGroups">
+        <div class="toggle">
+          <mat-slide-toggle color="secondary" (change)="filterCriteria.filteredByGender = !filterCriteria.filteredByGender" [checked]="filterCriteria.filteredByGender" tabindex="-1">Use Gender</mat-slide-toggle>
+
+          <div *ngIf="filterCriteria.filteredByGender">
+
+            <mat-form-field class="gender-field">
+              <mat-select placeholder="Gender" name="sex" [(ngModel)]="filterCriteria.sex" #sex="ngModel" tabindex="-1">
+                <mat-option *ngFor="let sex of sexTypes" [value]="sex.value">
+                  {{sex.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="toggle">
+          <mat-slide-toggle color="secondary" (change)="filterCriteria.useAgeRange = !filterCriteria.useAgeRange" [checked]="filterCriteria.useAgeRange" tabindex="-1">Use Age Range</mat-slide-toggle>
+
+          <div>
+            <mat-form-field class="start-age age" *ngIf="filterCriteria.useAgeRange">
+              <input matInput placeholder="Start Age" name="startAge" [(ngModel)]="filterCriteria.startAge" #startAge="ngModel" type="number" min="18" tabindex="-1" />
+            </mat-form-field>
+            <mat-form-field class="age" *ngIf="filterCriteria.useAgeRange">
+              <input matInput placeholder="End Age" name="endAge" [(ngModel)]="filterCriteria.endAge" #endAge="ngModel" type="number" min="filterCriteria.startAge" tabindex="-1" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Name Search" name="nameSearch" [(ngModel)]="filterCriteria.nameSearch" #nameSearch="ngModel" type="text" (keydown.space)="$event.preventDefault()" tabindex="-1"/>
+        </mat-form-field>
+
+        <!-- Tag search -->
+        <tag-input matInput name="tags" placeholder="+Search Tag" secondaryPlaceholder="Add Tags (Enter to Add)" theme="bootstrap" separatorKeyCodes="[9, 13]" (onAdd)="addTag($event)" (onRemove)="removeTag($event)" [ngModel]="filterCriteria.tags" tabindex="-1">
+          <tag-input-dropdown [autocompleteObservable]="getCommonTagItems"> </tag-input-dropdown>
+        </tag-input>
+
+        <div mat-dialog-actions>
+          <button mat-button (click)="useAllTags()" color="primary" tabindex="-1">Use All Tags</button>
+          <button mat-button (click)="useTagsForType(TagType.USER_SEARCH)" color="secondary" tabindex="-1" *ngIf="filterCriteria.searchForUsers">Use User Search Tags</button>
+          <button mat-button (click)="useTagsForType(TagType.GROUP_SEARCH)" color="secondary" tabindex="-1" *ngIf="filterCriteria.searchForGroups">Use Group Search Tags</button>
+          <button mat-button (click)="clearTags()" color="secondary" tabindex="-1">Clear Tags</button>
+        </div>
+      </div>
+
+      <div class="location-controls">
+        <!-- Location search -->
+        <div class="toggle">
+          <mat-slide-toggle color="secondary" (change)="filterCriteria.onlineOnly = !filterCriteria.onlineOnly" [checked]="filterCriteria.onlineOnly" tabindex="-1">Online Only</mat-slide-toggle>
+        </div>
+
+        <div *ngIf="!filterCriteria.onlineOnly">
+          <div>
+            <mat-form-field>
+              <input matInput placeholder="Search Radius (In Miles)" name="searchRadiusInMiles" [(ngModel)]="filterCriteria.searchRadiusInMiles" #searchRadiusInMiles="ngModel" type="number" tabindex="-1" />
+            </mat-form-field>
+          </div>
+
+          <div class="toggle">
+            <mat-slide-toggle color="secondary" (change)="filterCriteria.useMyLocation = !filterCriteria.useMyLocation" [checked]="filterCriteria.useMyLocation" [disabled]="!filterCriteria.canUseMyLocation" tabindex="-1" >Use My Location</mat-slide-toggle>
+          </div>
+
+          <div *ngIf="!filterCriteria.useMyLocation">
+            <mat-form-field>
+              <input matInput placeholder="Street Address" name="street" [(ngModel)]="filterCriteria.street" #street="ngModel" (change)="updateLocation()" tabindex="-1" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="City" name="city" [(ngModel)]="filterCriteria.city" #city="ngModel" (change)="updateLocation()" tabindex="-1" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Province (State)" name="province" [(ngModel)]="filterCriteria.province" #province="ngModel" (change)="updateLocation()" tabindex="-1" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Postal Code (Zip Code)" name="postalCode" [(ngModel)]="filterCriteria.postalCode" #postalCode="ngModel" type="number" (change)="updateLocation()" tabindex="-1" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Country" name="country" [(ngModel)]="filterCriteria.country" #country="ngModel" (change)="updateLocation()" tabindex="-1" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions align="center">
+    <button mat-button (click)="runFilter()" color="primary" tabindex="-1" [disabled]="!isFilterValid()">Filter</button>
+    <button mat-button (click)="dialogRef.close()" color="secondary" tabindex="-1">Cancel</button>
+  </div>
+</div>
